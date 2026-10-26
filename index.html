@@ -168,7 +168,11 @@ renewDomain:"دومين",renewSub:"اشتراك",back:"→ رجوع",found:"لق
 login:"تسجيل الدخول",password:"كلمة السر",loginBtn:"دخول",forgot:"نسيت كلمة السر؟",resetSent:"بعتنالك إيميل لتغيير كلمة السر.",needEmail:"اكتب إيميلك أول.",
 badLogin:"الإيميل أو كلمة السر غلط.",logout:"تسجيل الخروج",inactive:"حسابك موقّف أو لسا مش مفعّل. احكي مع أحمد.",
 addMember:"إضافة شغيل",memberCreated:"انعمل الحساب. ابعت للشغيل الإيميل وكلمة السر.",emailUsed:"هالإيميل مستخدم من قبل.",weakPw:"كلمة السر لازم تكون 6 أحرف أو أكتر.",badEmail:"الإيميل مش صحيح.",
-wname:"اسم الشغيل",deactivate:"إيقاف",activate:"تفعيل",stopped:"موقوف",ownerSetup:"أول مرة: اكتب اسمك لتبلش كصاحب الشغل."},
+wname:"اسم الشغيل",deactivate:"إيقاف",activate:"تفعيل",stopped:"موقوف",ownerSetup:"أول مرة: اكتب اسمك لتبلش كصاحب الشغل.",
+teamTab:"الفريق",editWorker:"تعديل الشغيل",defaultPct:"نسبة عمولته %",recruitedBy:"مين جابه للشغل؟",nobody:"ما حدا",sendReset:"ابعتله رابط تغيير كلمة السر",resetTo:"انبعت رابط تغيير كلمة السر لـ",
+salesTotal:"مبيعات زبائنه",bonuses:"مكافآت",bonusTxt:"مكافأة 100 € لما الشغيل اللي جبته يجيب أول زبون دافع.",weekGoal:"هدف هالأسبوع",clientsBrought:"زبائن جابهم",monthComm:"عمولة هالشهر",openPay:"باقي لازم ينصرف",earnedTotal:"مجموع الأرباح",
+recruits:"شغيلة جابهم",bonusDone:"مستحقة",bonusWait:"بانتظار أول زبون",outsiders:"أشخاص من برا التطبيق",teamOpen:"مستحق للفريق",teamMonth:"عمولات هالشهر",ranking:"الشغيلة (حسب ربح هالشهر)",myProjects:"المشاريع",
+myStats:"أرباحي",noWorkers:"ما في شغيلة لسا. اضغط «إضافة شغيل».",clientsWeek:"زبائن هالأسبوع",profile:"ملفي",goalOk:"وصلت الهدف 👍",goalLeft:"باقي",workerNotes:"ملاحظات (بتشوفها إنت بس)"},
 de:{sub:"Kunden- & Projektverwaltung",home:"Start",clients:"Kunden",projects:"Projekte",appts:"Termine",team:"Mein Konto",
 loading:"Wird geladen…",noDb:"Öffne die App angemeldet mit deinem Claude-Konto, damit Daten gespeichert werden.",
 welcome:"Willkommen! Trag deinen Namen ins Team ein",welcomeTxt:"Diesen Namen sieht das ganze Team, und er erscheint bei „Wer hat den Kunden gefunden?“.",
@@ -193,7 +197,11 @@ renewDomain:"Domain",renewSub:"Abo",back:"← Zurück",found:"Gefunden von",proj
 login:"Anmelden",password:"Passwort",loginBtn:"Anmelden",forgot:"Passwort vergessen?",resetSent:"Wir haben dir eine E-Mail zum Zurücksetzen geschickt.",needEmail:"Bitte zuerst E-Mail eingeben.",
 badLogin:"E-Mail oder Passwort falsch.",logout:"Abmelden",inactive:"Dein Konto ist gesperrt oder noch nicht aktiviert. Bitte Ahmed fragen.",
 addMember:"Mitarbeiter hinzufügen",memberCreated:"Konto erstellt. Schick dem Mitarbeiter E-Mail und Passwort.",emailUsed:"Diese E-Mail wird schon verwendet.",weakPw:"Passwort braucht mindestens 6 Zeichen.",badEmail:"Ungültige E-Mail.",
-wname:"Name des Mitarbeiters",deactivate:"Sperren",activate:"Aktivieren",stopped:"Gesperrt",ownerSetup:"Erster Start: Trag deinen Namen ein, um als Inhaber zu starten."}
+wname:"Name des Mitarbeiters",deactivate:"Sperren",activate:"Aktivieren",stopped:"Gesperrt",ownerSetup:"Erster Start: Trag deinen Namen ein, um als Inhaber zu starten.",
+teamTab:"Team",editWorker:"Mitarbeiter bearbeiten",defaultPct:"Seine Provision %",recruitedBy:"Wer hat ihn geworben?",nobody:"Niemand",sendReset:"Link zum Passwort-Ändern schicken",resetTo:"Link zum Passwort-Ändern geschickt an",
+salesTotal:"Umsatz seiner Kunden",bonuses:"Prämien",bonusTxt:"100 € Prämie, sobald dein geworbener Mitarbeiter seinen ersten zahlenden Kunden bringt.",weekGoal:"Wochenziel",clientsBrought:"Gewonnene Kunden",monthComm:"Provision diesen Monat",openPay:"Noch auszuzahlen",earnedTotal:"Verdienst gesamt",
+recruits:"Geworbene Mitarbeiter",bonusDone:"Fällig",bonusWait:"Wartet auf ersten Kunden",outsiders:"Personen außerhalb der App",teamOpen:"Offen fürs Team",teamMonth:"Provisionen diesen Monat",ranking:"Mitarbeiter (nach Verdienst diesen Monat)",myProjects:"Projekte",
+myStats:"Mein Verdienst",noWorkers:"Noch keine Mitarbeiter. Tippe „Mitarbeiter hinzufügen“.",clientsWeek:"Kunden diese Woche",profile:"Mein Profil",goalOk:"Ziel erreicht 👍",goalLeft:"noch",workerNotes:"Notizen (nur für dich sichtbar)"}
 };
 const STATUSES=["idea","offer","progress","done"];
 const SERVICES=["web","menu","pos","app","logo","hosting","seo","social","other"];
@@ -204,7 +212,7 @@ projects:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 13
 appts:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
 team:'<circle cx="12" cy="12" r="9"/><path d="M12 7v10M14.8 9.2c-.6-.8-1.6-1.2-2.8-1.2-1.6 0-2.8.8-2.8 2s1.2 1.6 2.8 2c1.6.4 2.8.9 2.8 2.1s-1.2 2-2.8 2c-1.3 0-2.4-.5-3-1.4"/>'};
 
-const S={lang:"ar",tab:"home",view:null,members:{},clients:[],projects:[],appts:[],payouts:[],loaded:{},uid:null,owner:false,canWrite:null,meName:"",db:null,status:"loading",pFilter:"all",q:"",showPast:false};
+const S={notes:{},lang:"ar",tab:"home",view:null,members:{},clients:[],projects:[],appts:[],payouts:[],loaded:{},uid:null,owner:false,canWrite:null,meName:"",db:null,status:"loading",pFilter:"all",q:"",showPast:false};
 try{const l=localStorage.getItem("dts-lang");if(l==="de"||l==="ar")S.lang=l}catch(e){}
 const t=k=>(I18N[S.lang][k]??k);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -237,7 +245,7 @@ function renderChrome(){
   document.getElementById("l-ar").setAttribute("aria-pressed",S.lang==="ar");
   document.getElementById("l-de").setAttribute("aria-pressed",S.lang==="de");
   const ready=S.status==="ready";
-  document.getElementById("tabs").innerHTML=ready?["home","clients","projects","appts","team"].map(k=>`<button data-act="tab" data-v="${k}" ${S.tab===k?'aria-current="page"':""}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${ICONS[k]}</svg>${t(k)}</button>`).join(""):"";
+  document.getElementById("tabs").innerHTML=ready?["home","clients","projects","appts","team"].map(k=>`<button data-act="tab" data-v="${k}" ${S.tab===k?'aria-current="page"':""}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${ICONS[k]}</svg>${k==="team"&&S.owner?t("teamTab"):t(k)}</button>`).join(""):"";
   document.getElementById("fab").hidden=!(ready&&!S.view&&["home","clients","projects","appts"].includes(S.tab));
 }
 
@@ -271,11 +279,13 @@ function vHome(){
   const up=S.appts.filter(a=>a.date>=todayIso()).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time)).slice(0,5);
   const rn=renewals();
   const tasks=[];for(const p of S.projects)for(const x of p.tasks||[])if(!x.done)tasks.push({p,x});
-  return `<div class="stats">
+  const ws=!S.owner?workerStats(S.uid):null;
+  const top=S.owner?`<div class="stats">
    <div class="stat"><span>${t("statClients")}</span><b class="num">${S.clients.length}</b></div>
    <div class="stat"><span>${t("statActive")}</span><b class="num">${active}</b></div>
    <div class="stat"><span>${t("statMonth")}</span><b class="num">${money(month)}</b></div>
-   <div class="stat"><span>${t("statOpen")}</span><b class="num">${money(open)}</b></div></div>
+   <div class="stat"><span>${t("statOpen")}</span><b class="num">${money(open)}</b></div></div>`:statGrid(ws)+goalBar(ws);
+  return top+`
   <section class="panel"><div class="row between"><h2>${t("upcoming")}</h2><button class="btn sm" data-act="newAppt">+ ${t("newAppt")}</button></div>
    <div class="list">${up.length?up.map(a=>apptItem(a)).join(""):`<div class="empty">${t("noUpcoming")}</div>`}</div></section>
   <section class="panel"><h2>${t("renewals")}</h2><div class="list">${rn.length?rn.map(r=>{
@@ -331,32 +341,71 @@ function vAppts(){
   return `<h1>${t("appts")}</h1><section class="panel"><div class="list">${up.length?up.map(a=>apptItem(a)).join(""):`<div class="empty">${t("noAppts")}</div>`}</div></section>
   ${past.length?`<section class="panel"><button class="row between back" style="width:100%" data-act="togglePast"><h2>${t("past")} <span class="num muted">${past.length}</span></h2><span>${S.showPast?"−":"+"}</span></button>${S.showPast?`<div class="list">${past.map(a=>apptItem(a)).join("")}</div>`:""}</section>`:""}`;
 }
-function commissionTable(){
+const REF_BONUS=100,WEEK_GOAL=1;
+function weekStart(){const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7));return d.getTime()}
+function monthPrefix(){const n=new Date();return n.getFullYear()+"-"+pad(n.getMonth()+1)}
+function workerStats(uid){
+  const ps=S.projects.filter(p=>p.finder?.kind==="member"&&p.finder.id===uid);
+  const ym=monthPrefix();let sales=0,comm=0,monthComm=0;
+  for(const p of ps){const pct=(+p.finder.pct||0)/100;for(const x of p.payments||[]){const a=+x.amount||0;sales+=a;comm+=a*pct;if(String(x.date).startsWith(ym))monthComm+=a*pct}}
+  const recruits=Object.values(S.members).filter(m=>m.recruitedBy===uid);
+  const hasPaid=id=>S.projects.some(p=>p.finder?.kind==="member"&&p.finder.id===id&&paidOf(p)>0);
+  const bonus=recruits.filter(r=>hasPaid(r.id)).length*REF_BONUS;
+  const out=S.payouts.filter(x=>x.key==="m:"+uid).reduce((a,x)=>a+(+x.amount||0),0);
+  const wst=weekStart();
+  return {uid,ps,sales,comm,monthComm,bonus,recruits,hasPaid,out,earned:comm+bonus,open:comm+bonus-out,
+    week:new Set(ps.filter(p=>(p.createdAt||0)>=wst).map(p=>p.clientId)).size,clients:new Set(ps.map(p=>p.clientId)).size};
+}
+function statGrid(w){
+  return `<div class="stats">
+   <div class="stat"><span>${t("clientsBrought")}</span><b class="num">${w.clients}</b></div>
+   <div class="stat"><span>${t("monthComm")}</span><b class="num">${money(w.monthComm)}</b></div>
+   <div class="stat"><span>${t("earnedTotal")}</span><b class="num">${money(w.earned)}</b></div>
+   <div class="stat"><span>${t("openPay")}</span><b class="num" style="color:var(--accent)">${money(w.open)}</b></div></div>`;
+}
+function goalBar(w){
+  const pc=Math.min(100,w.week/WEEK_GOAL*100);
+  return `<section class="panel"><div class="row between"><h2>${t("weekGoal")}</h2><b class="num">${w.week} / ${WEEK_GOAL}</b></div><div class="bar"><i style="width:${pc}%"></i></div><div class="small muted">${w.week>=WEEK_GOAL?t("goalOk"):t("goalLeft")+" "+(WEEK_GOAL-w.week)+" · "+t("clientsWeek")}</div></section>`;
+}
+function workerBody(uid){
+  const w=workerStats(uid);
+  const log=S.payouts.filter(x=>x.key==="m:"+uid).sort((a,b)=>String(b.date).localeCompare(a.date));
+  return statGrid(w)+goalBar(w)+`
+  <section class="panel"><div class="row between small"><span>${t("salesTotal")}</span><b class="num">${money(w.sales)}</b></div><div class="row between small"><span>${t("commission")}</span><b class="num">${money(w.comm)}</b></div><div class="row between small"><span>${t("bonuses")}</span><b class="num">${money(w.bonus)}</b></div><div class="row between small"><span>${t("myPaidOut")}</span><b class="num">${money(w.out)}</b></div></section>
+  <section class="panel"><h2>${t("myProjects")}</h2><div class="list">${w.ps.length?w.ps.map(p=>`<button class="item" data-act="openProject" data-id="${p.id}"><div class="grow"><div class="t">${esc(clientOf(p.clientId)?.name||p.title)}</div><div class="s">${esc(p.title)} · ${t("paid")} <span class="num">${money(paidOf(p))}</span> × <span class="num">${+p.finder.pct||0}%</span></div></div><b class="num">${money(commOf(p))}</b></button>`).join(""):`<div class="empty">${t("noMine")}</div>`}</div></section>
+  <section class="panel"><h2>${t("recruits")}</h2><div class="small muted">${t("bonusTxt")}</div><div class="list">${w.recruits.length?w.recruits.map(r=>`<div class="item" style="cursor:default"><div class="avatar">${esc(initials(r.name))}</div><div class="grow"><div class="t">${esc(r.name)}</div></div>${w.hasPaid(r.id)?`<span class="pill p-ok">${t("bonusDone")} · <span class="num">${money(REF_BONUS)}</span></span>`:`<span class="pill st-idea">${t("bonusWait")}</span>`}</div>`).join(""):`<div class="empty">—</div>`}</div></section>
+  ${log.length?`<section class="panel"><h2>${t("payoutsLog")}</h2><div class="list">${log.map(x=>`<div class="item" style="cursor:default"><div class="grow"><div class="t num">${money(x.amount)}</div><div class="s">${fmtDate(x.date)}</div></div>${S.owner?`<button class="btn sm danger" data-act="delPayout" data-id="${x.id}">×</button>`:""}</div>`).join("")}</div></section>`:""}`;
+}
+function vWorker(uid){
+  const m=S.members[uid];if(!m){S.view=null;return vTeam()}
+  const w=workerStats(uid);
+  return `<button class="back" data-act="back">${t("back")}</button>
+  <div class="row"><div class="avatar" style="width:48px;height:48px;font-size:20px">${esc(initials(m.name))}</div><div style="flex:1;min-width:0"><h1>${esc(m.name)}</h1><div class="small muted">${m.active===false?`<b style="color:var(--bad)">${t("stopped")}</b> · `:""}<span class="num">${esc(m.email||"")}</span>${m.phone?` · <span class="num">${esc(m.phone)}</span>`:""}</div></div></div>
+  <div class="row"><button class="btn primary" data-act="payout" data-key="m:${uid}" data-name="${esc(m.name)}" data-amt="${Math.max(0,w.open).toFixed(2)}">${t("payOut")}</button><button class="btn" data-act="editWorker" data-id="${uid}">${t("edit")}</button>${m.phone&&waLink(m.phone)?`<a class="btn" href="${waLink(m.phone)}" target="_blank" rel="noopener">${t("whatsapp")}</a>`:""}</div>
+  ${S.notes[uid]?`<div class="hint" style="white-space:pre-wrap">${esc(S.notes[uid])}</div>`:""}`+workerBody(uid);
+}
+function outsiderRows(){
   const map={};
-  for(const p of S.projects){const k=finderKey(p.finder);if(!k)continue;
-    map[k]??={key:k,name:finderLabel(p.finder),earned:0,out:0,projects:[]};map[k].earned+=commOf(p);map[k].projects.push(p)}
-  for(const x of S.payouts){map[x.key]??={key:x.key,name:x.name,earned:0,out:0,projects:[]};map[x.key].out+=+x.amount||0}
-  return Object.values(map).sort((a,b)=>(b.earned-b.out)-(a.earned-a.out));
+  for(const p of S.projects){if(p.finder?.kind!=="other")continue;const k=finderKey(p.finder);map[k]??={key:k,name:p.finder.name,earned:0,out:0};map[k].earned+=commOf(p)}
+  for(const x of S.payouts)if(map[x.key])map[x.key].out+=+x.amount||0;
+  return Object.values(map);
 }
 function vTeam(){
-  const me=S.members[S.uid];const rows=commissionTable();const mine=rows.find(r=>r.key==="m:"+S.uid)||{earned:0,out:0,projects:[]};
-  const myLog=S.payouts.filter(x=>x.key==="m:"+S.uid).sort((a,b)=>String(b.date).localeCompare(a.date));
-  let h=`<h1>${t("myAccount")}</h1><div class="row"><div class="avatar">${esc(initials(me?.name))}</div><div><b>${esc(me?.name||"")}</b><div class="small muted">${S.owner?t("owner"):t("member")}</div></div><button class="btn sm" data-act="editMe" style="margin-inline-start:auto">${t("edit")}</button></div>`;
-  if(!S.owner){
-    h+=`<div class="stats" style="grid-template-columns:repeat(3,minmax(0,1fr))"><div class="stat"><span>${t("myEarned")}</span><b class="num">${money(mine.earned)}</b></div><div class="stat"><span>${t("myPaidOut")}</span><b class="num">${money(mine.out)}</b></div><div class="stat"><span>${t("myOpen")}</span><b class="num" style="color:var(--accent)">${money(mine.earned-mine.out)}</b></div></div>
-    <section class="panel"><h2>${t("myClients")}</h2><div class="list">${mine.projects.length?mine.projects.map(p=>`<button class="item" data-act="openProject" data-id="${p.id}"><div class="grow"><div class="t">${esc(clientOf(p.clientId)?.name||p.title)}</div><div class="s">${esc(p.title)} · ${t("paid")} <span class="num">${money(paidOf(p))}</span> × <span class="num">${+p.finder.pct||0}%</span></div></div><b class="num">${money(commOf(p))}</b></button>`).join(""):`<div class="empty">${t("noMine")}</div>`}</div></section>
-    ${myLog.length?`<section class="panel"><h2>${t("payoutsLog")}</h2><div class="list">${myLog.map(x=>`<div class="item" style="cursor:default"><div class="grow"><div class="t num">${money(x.amount)}</div><div class="s">${fmtDate(x.date)}</div></div></div>`).join("")}</div></section>`:""}`;
-  } else {
-    h+=`<section class="panel"><h2>${t("allComm")}</h2><div class="list">${rows.length?rows.map(r=>`<div class="item" style="cursor:default"><div class="avatar">${esc(initials(r.name))}</div><div class="grow"><div class="t">${esc(r.name)}</div><div class="s">${t("commission")} <span class="num">${money(r.earned)}</span> · ${t("myPaidOut")} <span class="num">${money(r.out)}</span></div></div>
-      <div style="text-align:end"><b class="num" style="color:${r.earned-r.out>0.004?"var(--accent)":"var(--muted)"}">${money(r.earned-r.out)}</b><br><button class="btn sm" data-act="payout" data-key="${esc(r.key)}" data-name="${esc(r.name)}" data-amt="${Math.max(0,r.earned-r.out).toFixed(2)}">${t("payOut")}</button></div></div>`).join(""):`<div class="empty">${t("commNone")}</div>`}</div></section>
-    ${S.payouts.length?`<section class="panel"><h2>${t("payoutsLog")}</h2><div class="list">${S.payouts.slice().sort((a,b)=>String(b.date).localeCompare(a.date)).map(x=>`<div class="item" style="cursor:default"><div class="grow"><div class="t">${esc(x.name)}</div><div class="s">${fmtDate(x.date)}</div></div><b class="num">${money(x.amount)}</b><button class="btn sm danger" data-act="delPayout" data-id="${x.id}">×</button></div>`).join("")}</div></section>`:""}`;
-  }
-  const ms=Object.values(S.members).sort((a,b)=>(b.role==="owner")-(a.role==="owner"));
-  h+=`<section class="panel"><h2>${t("teamList")}</h2><div class="list">${ms.map(m=>`<div class="item" style="cursor:default"><div class="avatar">${esc(initials(m.name))}</div><div class="grow"><div class="t">${esc(m.name)}</div><div class="s">${m.role==="owner"?t("owner"):t("member")}${m.active===false?` · <b style="color:var(--bad)">${t("stopped")}</b>`:""}${m.email?` · <span class="num">${esc(m.email)}</span>`:""}${m.phone?` · <span class="num">${esc(m.phone)}</span>`:""}</div></div>
-  ${S.owner&&m.role!=="owner"?`<button class="btn sm ${m.active===false?"":"danger"}" data-act="toggleActive" data-id="${m.id}">${m.active===false?t("activate"):t("deactivate")}</button>`:""}</div>`).join("")}</div>
-  ${S.owner?`<button class="btn primary" data-act="addMember">+ ${t("addMember")}</button><div class="hint">${t("shareHint")}</div>`:""}</section>
+  const me=S.members[S.uid];
+  const prof=`<section class="panel"><div class="row"><div class="avatar">${esc(initials(me?.name))}</div><div style="flex:1;min-width:0"><b>${esc(me?.name||"")}</b><div class="small muted">${S.owner?t("owner"):t("member")} · <span class="num">${esc(S.email)}</span></div></div><button class="btn sm" data-act="editMe">${t("edit")}</button></div></section>
   <button class="btn wide" data-act="logout">${t("logout")}</button>`;
-  return h;
+  if(!S.owner)return `<h1>${t("myStats")}</h1>`+workerBody(S.uid)+prof;
+  const ws=Object.values(S.members).filter(m=>m.role!=="owner").map(m=>({m,w:workerStats(m.id)})).sort((a,b)=>(b.m.active!==false)-(a.m.active!==false)||b.w.monthComm-a.w.monthComm||b.w.earned-a.w.earned);
+  const outs=outsiderRows();
+  const teamOpen=ws.reduce((a,x)=>a+Math.max(0,x.w.open),0)+outs.reduce((a,o)=>a+Math.max(0,o.earned-o.out),0);
+  const teamMonth=ws.reduce((a,x)=>a+x.w.monthComm,0);
+  return `<h1>${t("teamTab")}</h1>
+  <div class="stats" style="grid-template-columns:repeat(2,minmax(0,1fr))"><div class="stat"><span>${t("teamMonth")}</span><b class="num">${money(teamMonth)}</b></div><div class="stat"><span>${t("teamOpen")}</span><b class="num" style="color:var(--accent)">${money(teamOpen)}</b></div></div>
+  <section class="panel"><div class="row between"><h2>${t("ranking")}</h2><button class="btn sm primary" data-act="addMember">+ ${t("addMember")}</button></div>
+  <div class="list">${ws.length?ws.map(({m,w},i)=>`<button class="item" data-act="openWorker" data-id="${m.id}"><div class="avatar">${esc(initials(m.name))}</div><div class="grow"><div class="t">${esc(m.name)}${m.active===false?` <span class="pill p-bad">${t("stopped")}</span>`:""}</div><div class="s">${t("clientsBrought")} <span class="num">${w.clients}</span> · ${t("weekGoal")} <span class="num">${w.week}/${WEEK_GOAL}</span> · ${t("monthComm")} <span class="num">${money(w.monthComm)}</span></div></div><div style="text-align:end"><b class="num" style="color:${w.open>0.004?"var(--accent)":"var(--muted)"}">${money(w.open)}</b><div class="small muted">${t("openPay")}</div></div></button>`).join(""):`<div class="empty">${t("noWorkers")}</div>`}</div>
+  <div class="hint">${t("shareHint")}</div></section>
+  ${outs.length?`<section class="panel"><h2>${t("outsiders")}</h2><div class="list">${outs.map(o=>`<div class="item" style="cursor:default"><div class="avatar">${esc(initials(o.name))}</div><div class="grow"><div class="t">${esc(o.name)}</div><div class="s">${t("commission")} <span class="num">${money(o.earned)}</span> · ${t("myPaidOut")} <span class="num">${money(o.out)}</span></div></div><button class="btn sm" data-act="payout" data-key="${esc(o.key)}" data-name="${esc(o.name)}" data-amt="${Math.max(0,o.earned-o.out).toFixed(2)}">${t("payOut")}</button></div>`).join("")}</div></section>`:""}
+  ${prof}`;
 }
 function vJoin(){
   return `<section class="panel" style="margin-top:8vh"><h1>${t("welcome")}</h1><p class="muted" style="margin:0">${t("ownerSetup")}</p>
@@ -377,6 +426,7 @@ function render(){
   if(S.status==="join"){m.innerHTML=vJoin();return}
   if(S.view?.type==="client")m.innerHTML=vClient(S.view.id);
   else if(S.view?.type==="project")m.innerHTML=vProject(S.view.id);
+  else if(S.view?.type==="worker")m.innerHTML=vWorker(S.view.id);
   else m.innerHTML={home:vHome,clients:vClients,projects:vProjects,appts:vAppts,team:vTeam}[S.tab]();
   renderChrome();
   if(focusId){const el=document.getElementById(focusId);if(el){if(focusVal!=null&&el.value!==focusVal&&el.id!=="q")el.value=focusVal;el.focus();try{if(selStart!=null)el.setSelectionRange(selStart,selStart)}catch(e){}}}
@@ -437,7 +487,8 @@ function formProject(p,clientId){
     if(ok&&ref)S.view={type:"project",id:ref.id};return ok},
   p.id?{act:"delProject",id:p.id}:null);
   const sel=document.getElementById("f-finder");
-  sel.onchange=()=>{document.getElementById("w-other").hidden=sel.value!=="other";document.getElementById("w-pct").hidden=sel.value==="none"};
+  sel.onchange=()=>{document.getElementById("w-other").hidden=sel.value!=="other";document.getElementById("w-pct").hidden=sel.value==="none";
+    if(sel.value.startsWith("m:")){const mm=S.members[sel.value.slice(2)];document.getElementById("f-pct").value=mm?.pct??30}};
 }
 function formAppt(a,clientId){
   a=a||{};
@@ -470,15 +521,26 @@ function formMe(){
   d=>write(()=>S.db.doc("users/"+S.uid).update({name:d.name.trim(),phone:d.phone.trim()}),t("saved")));
 }
 
+function recruiterSelect(cur,self){return `<label class="f">${t("recruitedBy")}<select id="f-wrec" name="recruitedBy"><option value="">${t("nobody")}</option>${Object.values(S.members).filter(m=>m.role!=="owner"&&m.id!==self).map(m=>opt(m.id,m.name,m.id===cur)).join("")}</select></label>`}
+function formEditMember(m){
+  openSheet(t("editWorker"),`<label class="f">${t("wname")}<input id="f-ename" name="name" required value="${esc(m.name)}"></label>
+   <div class="grid2"><label class="f">${t("phone")}<input id="f-ephone" name="phone" type="tel" dir="ltr" value="${esc(m.phone)}"></label><label class="f">${t("defaultPct")}<input id="f-epct" name="pct" type="number" min="0" max="100" step="1" dir="ltr" value="${esc(m.pct??30)}"></label></div>
+   ${recruiterSelect(m.recruitedBy||"",m.id)}
+   <label class="f">${t("workerNotes")}<textarea id="f-enotes" name="notes">${esc(S.notes[m.id]||"")}</textarea></label>
+   <div class="small muted">${t("email")}: <span class="num">${esc(m.email||"")}</span></div>
+   <div class="row"><button class="btn" type="button" data-act="sendReset" data-id="${m.id}">${t("sendReset")}</button><button class="btn ${m.active===false?"":"danger"}" type="button" data-act="toggleActive" data-id="${m.id}">${m.active===false?t("activate"):t("deactivate")}</button></div>`,
+  async d=>(await write(()=>fdb.doc("users/"+m.id).update({name:d.name.trim(),phone:d.phone.trim(),pct:+d.pct||0,recruitedBy:d.recruitedBy||""})))&&write(()=>fdb.doc("staffNotes/"+m.id).set({text:d.notes.trim()}),t("saved")));
+}
 function formMember(){
   openSheet(t("addMember"),`<label class="f">${t("wname")}<input id="f-wname" name="name" required></label>
    <label class="f">${t("email")}<input id="f-wemail" name="email" type="email" dir="ltr" required autocomplete="off"></label>
-   <div class="grid2"><label class="f">${t("password")}<input id="f-wpw" name="password" type="text" dir="ltr" minlength="6" required autocomplete="off"></label><label class="f">${t("phone")}<input id="f-wphone" name="phone" type="tel" dir="ltr"></label></div>`,
+   <div class="grid2"><label class="f">${t("password")}<input id="f-wpw" name="password" type="text" dir="ltr" minlength="6" required autocomplete="off"></label><label class="f">${t("phone")}<input id="f-wphone" name="phone" type="tel" dir="ltr"></label></div>
+   <div class="grid2"><label class="f">${t("defaultPct")}<input id="f-wpct" name="pct" type="number" min="0" max="100" step="1" dir="ltr" value="30"></label>${recruiterSelect("")}</div>`,
   async d=>{
     const sec=firebase.apps.find(a=>a.name==="sec")||firebase.initializeApp(firebaseConfig,"sec");
     try{
       const cred=await sec.auth().createUserWithEmailAndPassword(d.email.trim(),d.password);
-      await fdb.doc("users/"+cred.user.uid).set({name:d.name.trim(),email:d.email.trim().toLowerCase(),phone:d.phone.trim(),role:"member",active:true,joinedAt:Date.now()});
+      await fdb.doc("users/"+cred.user.uid).set({name:d.name.trim(),email:d.email.trim().toLowerCase(),phone:d.phone.trim(),role:"member",active:true,pct:+d.pct||0,recruitedBy:d.recruitedBy||"",joinedAt:Date.now()});
       await sec.auth().signOut();toast(t("memberCreated"));return true;
     }catch(e){console.error(e);const c=e?.code||"";toast(c.includes("email-already")?t("emailUsed"):c.includes("weak-password")?t("weakPw"):c.includes("invalid-email")?t("badEmail"):t("err"));return false}
   });
@@ -512,7 +574,10 @@ document.addEventListener("click",async e=>{
    case"payout":formPayout(b.dataset.key,b.dataset.name,b.dataset.amt);break;
    case"closeSheet":closeSheet();break;
    case"addMember":formMember();break;
-   case"toggleActive":{const m=S.members[id];write(()=>fdb.doc("users/"+id).update({active:m.active===false}),t("saved"));break}
+   case"openWorker":S.view={type:"worker",id};render();scrollTo(0,0);break;
+   case"editWorker":formEditMember(S.members[id]);break;
+   case"sendReset":{const m=S.members[id];if(m?.email){try{await auth.sendPasswordResetEmail(m.email);toast(t("resetTo")+" "+m.email)}catch(err){toast(t("err"))}}break}
+   case"toggleActive":{const m=S.members[id];if(await write(()=>fdb.doc("users/"+id).update({active:m.active===false}),t("saved")))closeSheet();break}
    case"logout":auth.signOut();break;
    case"reset":{const em=document.getElementById("l-email")?.value.trim();if(!em){toast(t("needEmail"));break}try{await auth.sendPasswordResetEmail(em)}catch(err){}toast(t("resetSent"));break}
    case"copy":try{await navigator.clipboard.writeText(b.dataset.v);toast(t("copied"))}catch(err){const r=document.createRange();r.selectNodeContents(b);getSelection().removeAllRanges();getSelection().addRange(r)}break;
@@ -561,6 +626,7 @@ function startData(){
   sub("projects",l=>S.projects=l);
   sub("appointments",l=>S.appts=l);
   sub("payouts",l=>S.payouts=l);
+  if(S.owner){need.push("staffNotes");sub("staffNotes",l=>{S.notes={};l.forEach(n=>S.notes[n.id]=n.text||"")})}
 }
 render();
 auth.onAuthStateChanged(u=>{

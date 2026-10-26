@@ -15,7 +15,10 @@ service cloud.firestore {
       allow create, delete: if isAdmin();
       allow update: if isAdmin()
         || (isMember() && request.auth.uid == uid
-            && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role', 'active', 'email']));
+            && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role', 'active', 'email', 'pct', 'recruitedBy']));
+    }
+    match /staffNotes/{uid} {
+      allow read, write: if isAdmin();
     }
     match /payouts/{id} {
       allow read: if isTeam();
