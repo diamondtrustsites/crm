@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0B6E78">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="DTS CRM">
+<meta name="robots" content="noindex,nofollow">
+<title>Diamond Trust CRM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: app shell — sticky header, single column of panels, fixed bottom tab bar (phone-first) */
+:root{
+  --bg:#EEF2F4; --surface:#FFFFFF; --sunk:#E3E9ED; --fg:#13222C; --muted:#5A6B77; --line:#D3DCE2;
+  --accent:#0B6E78; --accent-fg:#FFFFFF; --accent-soft:#D6EEF0;
+  --ok:#1E7A46; --ok-soft:#DAF1E3; --warn:#9A5B00; --warn-soft:#FBEBD0; --bad:#B42318; --bad-soft:#FBE0DD; --info:#2D55C8; --info-soft:#E0E7FB;
+  --f-ui:"IBM Plex Sans Arabic",system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;
+  --f-num:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --r:12px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0D161D; --surface:#15212A; --sunk:#1C2A35; --fg:#E4ECF1; --muted:#93A4B1; --line:#283844;
+  --accent:#39BCC7; --accent-fg:#06262A; --accent-soft:#123A40;
+  --ok:#5AD08C; --ok-soft:#14352A; --warn:#F0B35A; --warn-soft:#3A2C12; --bad:#FF8A7E; --bad-soft:#3E1D1A; --info:#8EA9FF; --info-soft:#1C2848;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0D161D; --surface:#15212A; --sunk:#1C2A35; --fg:#E4ECF1; --muted:#93A4B1; --line:#283844;
+  --accent:#39BCC7; --accent-fg:#06262A; --accent-soft:#123A40;
+  --ok:#5AD08C; --ok-soft:#14352A; --warn:#F0B35A; --warn-soft:#3A2C12; --bad:#FF8A7E; --bad-soft:#3E1D1A; --info:#8EA9FF; --info-soft:#1C2848;
+  color-scheme:dark}
+*{box-sizing:border-box}
+html{padding-top:env(safe-area-inset-top,0px)}
+body{margin:0}
+[hidden]{display:none!important}
+img{max-width:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-ui);font-size:15px;line-height:1.5;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line);
+  padding-block:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;align-items:center;gap:10px}
+.brand{display:flex;align-items:center;gap:8px;min-width:0;flex:1}
+.brand svg{flex:none}
+.brand b{font-size:16px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand small{display:block;color:var(--muted);font-size:12px;line-height:1.2}
+.langs{display:flex;background:var(--sunk);border-radius:999px;padding:3px}
+.langs button{border:0;background:none;color:var(--muted);font:600 13px var(--f-ui);padding:4px 10px;border-radius:999px;cursor:pointer}
+.langs button[aria-pressed="true"]{background:var(--surface);color:var(--fg);box-shadow:0 1px 2px rgb(0 0 0/.12)}
+main{max-width:760px;margin:0 auto;padding-block:16px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:16px}
+h1{font-size:22px;margin:0;text-wrap:balance}
+h2{font-size:16px;margin:0;text-wrap:balance}
+.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.between{justify-content:space-between}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (min-width:620px){.stats{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px;display:flex;flex-direction:column;gap:2px}
+.stat span{font-size:12px;color:var(--muted);letter-spacing:.02em}
+.stat b{font-size:20px}
+.list{display:flex;flex-direction:column}
+.item{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line);min-width:0;cursor:pointer;background:none;border-left:0;border-right:0;border-bottom:0;width:100%;text-align:start;color:inherit;font:inherit}
+.item:first-child{border-top:0}
+.item .grow{flex:1;min-width:0}
+.item .t{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.item .s{font-size:13px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-weight:700;flex:none}
+.datebox{width:46px;flex:none;text-align:center;border-radius:10px;background:var(--sunk);padding:4px 0;line-height:1.15}
+.datebox b{display:block;font-size:17px}
+.datebox span{font-size:11px;color:var(--muted)}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;border-radius:999px;padding:2px 9px;white-space:nowrap}
+.st-idea{background:var(--sunk);color:var(--muted)}
+.st-offer{background:var(--warn-soft);color:var(--warn)}
+.st-progress{background:var(--info-soft);color:var(--info)}
+.st-done{background:var(--ok-soft);color:var(--ok)}
+.p-bad{background:var(--bad-soft);color:var(--bad)}
+.p-warn{background:var(--warn-soft);color:var(--warn)}
+.p-ok{background:var(--ok-soft);color:var(--ok)}
+.chip{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:1px 8px;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--line);background:var(--surface);color:var(--fg);font:600 14px var(--f-ui);padding:8px 14px;border-radius:10px;cursor:pointer;text-decoration:none;min-height:40px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.btn.danger{color:var(--bad);border-color:var(--bad-soft)}
+.btn.danger.armed{background:var(--bad);color:#fff;border-color:var(--bad)}
+.btn.sm{padding:4px 10px;min-height:32px;font-size:13px}
+.btn.wide{width:100%}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.seg{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
+.seg button{flex:none;border:1px solid var(--line);background:var(--surface);color:var(--muted);font:600 13px var(--f-ui);padding:5px 12px;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+input,select,textarea{width:100%;font:15px var(--f-ui);color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 11px}
+textarea{min-height:70px;resize:vertical}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted);font-weight:500;min-width:0}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.checks{display:flex;flex-wrap:wrap;gap:6px}
+.checks label{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:13px;cursor:pointer;color:var(--fg)}
+.checks input{width:auto;margin:0}
+.checks label:has(input:checked){background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:14px}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.bar{height:8px;background:var(--sunk);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ok);border-radius:99px}
+.task{display:flex;align-items:center;gap:10px;padding:6px 0}
+.task input{width:20px;height:20px;flex:none}
+.task.done span{text-decoration:line-through;color:var(--muted)}
+.empty{text-align:center;color:var(--muted);padding:18px 8px;font-size:14px}
+nav.tabs{position:fixed;inset:auto 0 0;z-index:6;background:var(--surface);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);
+  padding-bottom:env(safe-area-inset-bottom,0px);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+nav.tabs button{border:0;background:none;color:var(--muted);font:600 11px var(--f-ui);display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 2px 9px;cursor:pointer}
+nav.tabs button svg{width:22px;height:22px}
+nav.tabs button[aria-current="page"]{color:var(--accent)}
+.fab{position:fixed;z-index:6;bottom:calc(72px + env(safe-area-inset-bottom,0px));inset-inline-end:max(16px,env(safe-area-inset-right,0px));width:54px;height:54px;border-radius:16px;border:0;background:var(--accent);color:var(--accent-fg);font-size:28px;line-height:1;cursor:pointer;box-shadow:0 6px 18px rgb(0 0 0/.22)}
+.sheet-wrap{position:fixed;inset:0;z-index:20;background:rgb(0 0 0/.42);display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--surface);width:100%;max-width:620px;max-height:92%;overflow-y:auto;border-radius:18px 18px 0 0;
+  padding-block:16px calc(20px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:12px}
+.toast{position:fixed;z-index:30;left:50%;transform:translateX(-50%);bottom:calc(140px + env(safe-area-inset-bottom,0px));background:var(--fg);color:var(--bg);padding:9px 16px;border-radius:10px;font-size:14px;max-width:90%}
+.back{border:0;background:none;color:var(--accent);font:600 14px var(--f-ui);cursor:pointer;padding:0;align-self:flex-start}
+.hint{background:var(--accent-soft);color:var(--fg);border-radius:var(--r);padding:12px;font-size:14px}
+@media (prefers-reduced-motion:no-preference){.sheet{animation:up .18s ease-out}@keyframes up{from{transform:translateY(24px);opacity:.6}}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><path d="M7 4h14l5 7-12 13L2 11z" fill="var(--accent)"/><path d="M2 11h24M9.5 4 14 24l4.5-20M7 4l2.5 7M21 4l-2.5 7" stroke="var(--surface)" stroke-width="1.3" fill="none"/></svg>
+    <div><b>Diamond Trust Sites</b><small id="subtitle"></small></div>
+  </div>
+  <div class="langs" role="group" aria-label="Sprache / اللغة">
+    <button id="l-ar" data-act="lang" data-v="ar">ع</button>
+    <button id="l-de" data-act="lang" data-v="de">DE</button>
+  </div>
+</header>
+<main id="main"></main>
+<button class="fab" id="fab" data-act="fab" aria-label="+" hidden>+</button>
+<nav class="tabs" id="tabs"></nav>
+<div class="sheet-wrap" id="sheetWrap" hidden><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
+<div class="toast" id="toast" hidden></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+const I18N={
+ar:{sub:"إدارة الزبائن والمشاريع",home:"الرئيسية",clients:"الزبائن",projects:"المشاريع",appts:"المواعيد",team:"حسابي",
+loading:"جاري التحميل…",noDb:"افتح التطبيق وأنت مسجّل دخول بحساب Claude حتى تنحفظ البيانات.",
+welcome:"أهلاً! سجّل اسمك بالفريق",welcomeTxt:"هذا الاسم بيشوفه باقي الفريق، وبيظهر بقائمة «مين لقى الزبون».",
+yourName:"اسمك",phone:"الهاتف",email:"الإيميل",address:"العنوان",notes:"ملاحظات",save:"حفظ",cancel:"إلغاء",del:"حذف",sure:"متأكد؟ اضغط مرة ثانية",edit:"تعديل",
+join:"انضم للفريق",statClients:"زبائن",statActive:"مشاريع شغالة",statMonth:"دخل هالشهر",statOpen:"مبالغ باقية",
+upcoming:"المواعيد الجاية",noUpcoming:"ما في مواعيد جاية. اضغط + لتضيف موعد.",renewals:"تجديدات واشتراكات (30 يوم)",noRenew:"ما في تجديدات قريبة.",
+openTasks:"مهام مفتوحة",noTasks:"ما في مهام مفتوحة.",search:"ابحث باسم أو رقم…",noClients:"ما في زبائن لسا. اضغط + لتضيف أول زبون.",
+newClient:"زبون جديد",clientName:"اسم الزبون",business:"اسم المحل / المطعم",whatsapp:"واتساب",copy:"نسخ",copied:"تم النسخ",
+newProject:"مشروع جديد",projTitle:"اسم المشروع",client:"الزبون",services:"الخدمات",status:"الحالة",price:"السعر الكامل (€)",
+finder:"مين لقى الزبون؟",finderNone:"أنا / صاحب الشغل (بدون عمولة)",finderOther:"شخص من برا التطبيق",otherName:"اسم الشخص",pct:"نسبة العمولة %",
+monthly:"اشتراك شهري (€)",nextDue:"موعد الدفعة الجاية",domain:"تجديد الدومين",links:"روابط (الموقع، الملفات…)",
+noProjects:"ما في مشاريع هون.",all:"الكل",paid:"مدفوع",remaining:"باقي",of:"من",payments:"الدفعات",addPayment:"تسجيل دفعة",amount:"المبلغ (€)",date:"التاريخ",
+noPayments:"ما في دفعات لسا.",tasks:"المهام",addTask:"أضف مهمة…",add:"أضف",commission:"عمولة",for:"لـ",subPaid:"دفع الاشتراك",
+newAppt:"موعد جديد",apptTitle:"عنوان الموعد",time:"الساعة",place:"المكان",who:"مين رايح",noAppts:"ما في مواعيد. اضغط + لتضيف موعد.",past:"مواعيد سابقة",today:"اليوم",
+myAccount:"حسابي",myEarned:"عمولاتي",myPaidOut:"انصرفلي",myOpen:"إلي باقي",myClients:"الزبائن اللي جبتهم",noMine:"لسا ما جبت زبائن. لما يختارك حدا «لقى الزبون» بيظهر هون.",
+allComm:"عمولات الفريق",commNone:"ما في عمولات لسا.",payOut:"صرف عمولة",payoutsLog:"سجل الصرف",teamList:"الفريق",owner:"صاحب الشغل",member:"عضو",
+shareHint:"اضغط «إضافة شغيل»، اعمله إيميل وكلمة سر، وابعتله رابط التطبيق مع معلومات الدخول.",
+st_idea:"فكرة",st_offer:"عرض سعر",st_progress:"قيد العمل",st_done:"تم التسليم",
+sv_web:"موقع",sv_menu:"منيو QR",sv_pos:"نظام كاشير",sv_app:"تطبيق",sv_logo:"لوغو",sv_hosting:"استضافة",sv_seo:"SEO / Google",sv_social:"سوشيال ميديا",sv_other:"غير ذلك",
+overdue:"متأخر",due:"مستحق",err:"ما زبط الحفظ. جرّب مرة ثانية.",saved:"تم الحفظ",noPerm:"ما عندك صلاحية تعديل. اطلب من أحمد يعطيك صلاحية.",
+renewDomain:"دومين",renewSub:"اشتراك",back:"→ رجوع",found:"لقاه",project:"مشروع",total:"المجموع",
+login:"تسجيل الدخول",password:"كلمة السر",loginBtn:"دخول",forgot:"نسيت كلمة السر؟",resetSent:"بعتنالك إيميل لتغيير كلمة السر.",needEmail:"اكتب إيميلك أول.",
+badLogin:"الإيميل أو كلمة السر غلط.",logout:"تسجيل الخروج",inactive:"حسابك موقّف أو لسا مش مفعّل. احكي مع أحمد.",
+addMember:"إضافة شغيل",memberCreated:"انعمل الحساب. ابعت للشغيل الإيميل وكلمة السر.",emailUsed:"هالإيميل مستخدم من قبل.",weakPw:"كلمة السر لازم تكون 6 أحرف أو أكتر.",badEmail:"الإيميل مش صحيح.",
+wname:"اسم الشغيل",deactivate:"إيقاف",activate:"تفعيل",stopped:"موقوف",ownerSetup:"أول مرة: اكتب اسمك لتبلش كصاحب الشغل."},
+de:{sub:"Kunden- & Projektverwaltung",home:"Start",clients:"Kunden",projects:"Projekte",appts:"Termine",team:"Mein Konto",
+loading:"Wird geladen…",noDb:"Öffne die App angemeldet mit deinem Claude-Konto, damit Daten gespeichert werden.",
+welcome:"Willkommen! Trag deinen Namen ins Team ein",welcomeTxt:"Diesen Namen sieht das ganze Team, und er erscheint bei „Wer hat den Kunden gefunden?“.",
+yourName:"Dein Name",phone:"Telefon",email:"E-Mail",address:"Adresse",notes:"Notizen",save:"Speichern",cancel:"Abbrechen",del:"Löschen",sure:"Sicher? Nochmal tippen",edit:"Bearbeiten",
+join:"Team beitreten",statClients:"Kunden",statActive:"Aktive Projekte",statMonth:"Umsatz diesen Monat",statOpen:"Offene Beträge",
+upcoming:"Nächste Termine",noUpcoming:"Keine Termine. Tippe +, um einen anzulegen.",renewals:"Verlängerungen & Abos (30 Tage)",noRenew:"Keine anstehenden Verlängerungen.",
+openTasks:"Offene Aufgaben",noTasks:"Keine offenen Aufgaben.",search:"Name oder Nummer suchen…",noClients:"Noch keine Kunden. Tippe +, um den ersten anzulegen.",
+newClient:"Neuer Kunde",clientName:"Kundenname",business:"Geschäft / Restaurant",whatsapp:"WhatsApp",copy:"Kopieren",copied:"Kopiert",
+newProject:"Neues Projekt",projTitle:"Projektname",client:"Kunde",services:"Leistungen",status:"Status",price:"Gesamtpreis (€)",
+finder:"Wer hat den Kunden gefunden?",finderNone:"Ich / Inhaber (keine Provision)",finderOther:"Person außerhalb der App",otherName:"Name der Person",pct:"Provision %",
+monthly:"Monatliches Abo (€)",nextDue:"Nächste Zahlung fällig",domain:"Domain-Verlängerung",links:"Links (Website, Dateien…)",
+noProjects:"Keine Projekte hier.",all:"Alle",paid:"Bezahlt",remaining:"Offen",of:"von",payments:"Zahlungen",addPayment:"Zahlung erfassen",amount:"Betrag (€)",date:"Datum",
+noPayments:"Noch keine Zahlungen.",tasks:"Aufgaben",addTask:"Aufgabe hinzufügen…",add:"Hinzufügen",commission:"Provision",for:"für",subPaid:"Abo bezahlt",
+newAppt:"Neuer Termin",apptTitle:"Titel",time:"Uhrzeit",place:"Ort",who:"Wer geht hin",noAppts:"Keine Termine. Tippe +, um einen anzulegen.",past:"Vergangene Termine",today:"Heute",
+myAccount:"Mein Konto",myEarned:"Meine Provision",myPaidOut:"Ausgezahlt",myOpen:"Noch offen",myClients:"Meine vermittelten Kunden",noMine:"Noch keine vermittelten Kunden. Sobald dich jemand als Finder einträgt, erscheint es hier.",
+allComm:"Provisionen im Team",commNone:"Noch keine Provisionen.",payOut:"Provision auszahlen",payoutsLog:"Auszahlungen",teamList:"Team",owner:"Inhaber",member:"Mitglied",
+shareHint:"Tippe „Mitarbeiter hinzufügen“, leg E-Mail und Passwort an und schick ihm den App-Link mit den Zugangsdaten.",
+st_idea:"Idee",st_offer:"Angebot",st_progress:"In Arbeit",st_done:"Fertig",
+sv_web:"Website",sv_menu:"QR-Menü",sv_pos:"Kassensystem",sv_app:"App",sv_logo:"Logo",sv_hosting:"Hosting",sv_seo:"SEO / Google",sv_social:"Social Media",sv_other:"Sonstiges",
+overdue:"Überfällig",due:"Fällig",err:"Speichern fehlgeschlagen. Bitte nochmal versuchen.",saved:"Gespeichert",noPerm:"Keine Bearbeitungsrechte. Bitte Ahmed um Zugriff.",
+renewDomain:"Domain",renewSub:"Abo",back:"← Zurück",found:"Gefunden von",project:"Projekt",total:"Summe",
+login:"Anmelden",password:"Passwort",loginBtn:"Anmelden",forgot:"Passwort vergessen?",resetSent:"Wir haben dir eine E-Mail zum Zurücksetzen geschickt.",needEmail:"Bitte zuerst E-Mail eingeben.",
+badLogin:"E-Mail oder Passwort falsch.",logout:"Abmelden",inactive:"Dein Konto ist gesperrt oder noch nicht aktiviert. Bitte Ahmed fragen.",
+addMember:"Mitarbeiter hinzufügen",memberCreated:"Konto erstellt. Schick dem Mitarbeiter E-Mail und Passwort.",emailUsed:"Diese E-Mail wird schon verwendet.",weakPw:"Passwort braucht mindestens 6 Zeichen.",badEmail:"Ungültige E-Mail.",
+wname:"Name des Mitarbeiters",deactivate:"Sperren",activate:"Aktivieren",stopped:"Gesperrt",ownerSetup:"Erster Start: Trag deinen Namen ein, um als Inhaber zu starten."}
+};
+const STATUSES=["idea","offer","progress","done"];
+const SERVICES=["web","menu","pos","app","logo","hosting","seo","social","other"];
+const ICONS={
+home:'<path d="M3 11 12 4l9 7v9h-6v-6H9v6H3z"/>',
+clients:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.3-5.5 6.5-5.5s5.7 1.9 6.5 5.5M16 4.8a3.4 3.4 0 0 1 0 6.4M18 14.8c1.8.7 3 2.4 3.5 5.2"/>',
+projects:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 13h5M8 16h8"/>',
+appts:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+team:'<circle cx="12" cy="12" r="9"/><path d="M12 7v10M14.8 9.2c-.6-.8-1.6-1.2-2.8-1.2-1.6 0-2.8.8-2.8 2s1.2 1.6 2.8 2c1.6.4 2.8.9 2.8 2.1s-1.2 2-2.8 2c-1.3 0-2.4-.5-3-1.4"/>'};
+
+const S={lang:"ar",tab:"home",view:null,members:{},clients:[],projects:[],appts:[],payouts:[],loaded:{},uid:null,owner:false,canWrite:null,meName:"",db:null,status:"loading",pFilter:"all",q:"",showPast:false};
+try{const l=localStorage.getItem("dts-lang");if(l==="de"||l==="ar")S.lang=l}catch(e){}
+const t=k=>(I18N[S.lang][k]??k);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const loc=()=>S.lang==="ar"?"ar-u-nu-latn":"de-DE";
+const money=n=>new Intl.NumberFormat("de-DE",{style:"currency",currency:"EUR",maximumFractionDigits:2}).format(+n||0);
+const pad=n=>String(n).padStart(2,"0");
+const isoDay=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+const todayIso=()=>isoDay(new Date());
+const parseIso=s=>{const [y,m,d]=String(s).split("-").map(Number);return new Date(y,(m||1)-1,d||1)};
+const fmtDate=s=>s?new Intl.DateTimeFormat(loc(),{day:"numeric",month:"short",year:"numeric"}).format(parseIso(s)):"";
+const addMonth=s=>{const d=parseIso(s||todayIso());const day=d.getDate();d.setMonth(d.getMonth()+1);if(d.getDate()<day)d.setDate(0);return isoDay(d)};
+const daysUntil=s=>Math.round((parseIso(s)-parseIso(todayIso()))/864e5);
+const uidShort=()=>Math.random().toString(36).slice(2,9);
+const paidOf=p=>(p.payments||[]).reduce((a,x)=>a+(+x.amount||0),0);
+const clientOf=id=>S.clients.find(c=>c.id===id);
+const memberName=id=>S.members[id]?.name||"—";
+const initials=s=>(String(s||"?").trim()[0]||"?").toUpperCase();
+const finderKey=f=>!f||f.kind==="none"?null:f.kind==="member"?"m:"+f.id:"o:"+(f.name||"").trim().toLowerCase();
+const finderLabel=f=>!f||f.kind==="none"?t("finderNone"):f.kind==="member"?memberName(f.id):(f.name||"—");
+const commOf=p=>finderKey(p.finder)?paidOf(p)*(+p.finder.pct||0)/100:0;
+const waLink=ph=>{let d=String(ph||"").replace(/[^\d+]/g,"");if(d.startsWith("+"))d=d.slice(1);else if(d.startsWith("00"))d=d.slice(2);else if(d.startsWith("0"))d="49"+d.slice(1);return d?"https://wa.me/"+d:null};
+
+function toast(msg){const el=document.getElementById("toast");el.textContent=msg;el.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(()=>el.hidden=true,2200)}
+async function write(fn,okMsg){try{await fn();if(okMsg)toast(okMsg);return true}catch(e){console.error(e);toast(/permission/i.test(e?.code+" "+e?.message)?t("noPerm"):t("err"));return false}}
+
+/* ---------- chrome ---------- */
+function renderChrome(){
+  document.documentElement.lang=S.lang;document.documentElement.dir=S.lang==="ar"?"rtl":"ltr";
+  document.getElementById("subtitle").textContent=t("sub");
+  document.getElementById("l-ar").setAttribute("aria-pressed",S.lang==="ar");
+  document.getElementById("l-de").setAttribute("aria-pressed",S.lang==="de");
+  const ready=S.status==="ready";
+  document.getElementById("tabs").innerHTML=ready?["home","clients","projects","appts","team"].map(k=>`<button data-act="tab" data-v="${k}" ${S.tab===k?'aria-current="page"':""}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${ICONS[k]}</svg>${t(k)}</button>`).join(""):"";
+  document.getElementById("fab").hidden=!(ready&&!S.view&&["home","clients","projects","appts"].includes(S.tab));
+}
+
+/* ---------- views ---------- */
+function statusPill(s){return `<span class="pill st-${s}">${t("st_"+s)}</span>`}
+function apptItem(a,showPastStyle){
+  const d=parseIso(a.date);const c=clientOf(a.clientId);
+  return `<button class="item" data-act="editAppt" data-id="${a.id}"><div class="datebox"><b class="num">${d.getDate()}</b><span>${new Intl.DateTimeFormat(loc(),{month:"short"}).format(d)}</span></div>
+  <div class="grow"><div class="t">${esc(a.title||c?.name||"—")}</div><div class="s"><span class="num">${esc(a.time||"")}</span>${c?" · "+esc(c.name):""}${a.place?" · "+esc(a.place):""}${a.who?" · "+esc(memberName(a.who)):""}</div></div>
+  ${a.date===todayIso()?`<span class="pill p-ok">${t("today")}</span>`:""}</button>`;
+}
+function projItem(p){
+  const c=clientOf(p.clientId);const paid=paidOf(p);const rem=Math.max((+p.price||0)-paid,0);
+  return `<button class="item" data-act="openProject" data-id="${p.id}"><div class="grow"><div class="t">${esc(p.title||"—")}</div>
+  <div class="s">${esc(c?.name||"")}${(p.services||[]).length?" · "+p.services.map(s=>t("sv_"+s)).join("، "):""}</div></div>
+  <div style="text-align:end">${statusPill(p.status||"idea")}<div class="small muted num">${rem>0?money(rem):money(paid)}</div></div></button>`;
+}
+function renewals(){
+  const out=[];
+  for(const p of S.projects){
+    if(+p.monthly>0&&p.nextDue){const n=daysUntil(p.nextDue);if(n<=30)out.push({p,kind:"sub",date:p.nextDue,n})}
+    if(p.domain){const n=daysUntil(p.domain);if(n<=30)out.push({p,kind:"domain",date:p.domain,n})}
+  }
+  return out.sort((a,b)=>a.n-b.n);
+}
+function vHome(){
+  const now=new Date();const ym=now.getFullYear()+"-"+pad(now.getMonth()+1);
+  let month=0,open=0;
+  for(const p of S.projects){for(const x of p.payments||[])if(String(x.date).startsWith(ym))month+=+x.amount||0;open+=Math.max((+p.price||0)-paidOf(p),0)}
+  const active=S.projects.filter(p=>p.status!=="done").length;
+  const up=S.appts.filter(a=>a.date>=todayIso()).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time)).slice(0,5);
+  const rn=renewals();
+  const tasks=[];for(const p of S.projects)for(const x of p.tasks||[])if(!x.done)tasks.push({p,x});
+  return `<div class="stats">
+   <div class="stat"><span>${t("statClients")}</span><b class="num">${S.clients.length}</b></div>
+   <div class="stat"><span>${t("statActive")}</span><b class="num">${active}</b></div>
+   <div class="stat"><span>${t("statMonth")}</span><b class="num">${money(month)}</b></div>
+   <div class="stat"><span>${t("statOpen")}</span><b class="num">${money(open)}</b></div></div>
+  <section class="panel"><div class="row between"><h2>${t("upcoming")}</h2><button class="btn sm" data-act="newAppt">+ ${t("newAppt")}</button></div>
+   <div class="list">${up.length?up.map(a=>apptItem(a)).join(""):`<div class="empty">${t("noUpcoming")}</div>`}</div></section>
+  <section class="panel"><h2>${t("renewals")}</h2><div class="list">${rn.length?rn.map(r=>{
+     const c=clientOf(r.p.clientId);const cls=r.n<0?"p-bad":r.n<=7?"p-warn":"p-ok";
+     return `<button class="item" data-act="openProject" data-id="${r.p.id}"><div class="grow"><div class="t">${esc(c?.name||r.p.title)}</div><div class="s">${r.kind==="sub"?t("renewSub")+" · "+money(r.p.monthly):t("renewDomain")} · ${fmtDate(r.date)}</div></div><span class="pill ${cls}">${r.n<0?t("overdue"):r.n===0?t("today"):`<span class="num">${r.n}</span>d`}</span></button>`}).join(""):`<div class="empty">${t("noRenew")}</div>`}</div></section>
+  <section class="panel"><h2>${t("openTasks")}</h2><div class="list">${tasks.length?tasks.slice(0,8).map(({p,x})=>`<button class="item" data-act="openProject" data-id="${p.id}"><div class="grow"><div class="t">${esc(x.text)}</div><div class="s">${esc(p.title)} · ${esc(clientOf(p.clientId)?.name||"")}</div></div></button>`).join(""):`<div class="empty">${t("noTasks")}</div>`}</div></section>`;
+}
+function vClients(){
+  const q=S.q.trim().toLowerCase();
+  const list=S.clients.filter(c=>!q||[c.name,c.business,c.phone,c.email].join(" ").toLowerCase().includes(q)).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+  return `<h1>${t("clients")}</h1><input id="q" type="search" placeholder="${t("search")}" value="${esc(S.q)}">
+  <section class="panel"><div class="list">${list.length?list.map(c=>{const n=S.projects.filter(p=>p.clientId===c.id).length;
+    return `<button class="item" data-act="openClient" data-id="${c.id}"><div class="avatar">${esc(initials(c.name))}</div><div class="grow"><div class="t">${esc(c.name)}</div><div class="s">${esc(c.business||"")}${c.phone?` · <span class="num">${esc(c.phone)}</span>`:""}</div></div>${n?`<span class="chip num">${n}</span>`:""}</button>`}).join(""):`<div class="empty">${t("noClients")}</div>`}</div></section>`;
+}
+function vClient(id){
+  const c=clientOf(id);if(!c){S.view=null;return vClients()}
+  const wa=waLink(c.phone);const ps=S.projects.filter(p=>p.clientId===id);const as=S.appts.filter(a=>a.clientId===id).sort((a,b)=>b.date.localeCompare(a.date));
+  return `<button class="back" data-act="back">${t("back")}</button>
+  <div class="row"><div class="avatar" style="width:48px;height:48px;font-size:20px">${esc(initials(c.name))}</div><div class="grow" style="min-width:0;flex:1"><h1>${esc(c.name)}</h1><div class="muted">${esc(c.business||"")}</div></div></div>
+  <div class="row">${wa?`<a class="btn primary" href="${wa}" target="_blank" rel="noopener">${t("whatsapp")}</a>`:""}${c.phone?`<button class="btn" data-act="copy" data-v="${esc(c.phone)}">${t("copy")} <span class="num">${esc(c.phone)}</span></button>`:""}<button class="btn" data-act="editClient" data-id="${c.id}">${t("edit")}</button></div>
+  <section class="panel"><dl class="kv">${c.email?`<dt>${t("email")}</dt><dd>${esc(c.email)}</dd>`:""}${c.address?`<dt>${t("address")}</dt><dd>${esc(c.address)}</dd>`:""}${c.notes?`<dt>${t("notes")}</dt><dd style="white-space:pre-wrap">${esc(c.notes)}</dd>`:""}${!c.email&&!c.address&&!c.notes?`<dd class="muted">—</dd>`:""}</dl></section>
+  <section class="panel"><div class="row between"><h2>${t("projects")}</h2><button class="btn sm" data-act="newProject" data-client="${c.id}">+ ${t("newProject")}</button></div><div class="list">${ps.length?ps.map(projItem).join(""):`<div class="empty">${t("noProjects")}</div>`}</div></section>
+  <section class="panel"><div class="row between"><h2>${t("appts")}</h2><button class="btn sm" data-act="newAppt" data-client="${c.id}">+ ${t("newAppt")}</button></div><div class="list">${as.length?as.map(a=>apptItem(a)).join(""):`<div class="empty">${t("noAppts")}</div>`}</div></section>`;
+}
+function vProjects(){
+  const list=S.projects.filter(p=>S.pFilter==="all"||(p.status||"idea")===S.pFilter).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+  return `<h1>${t("projects")}</h1><div class="seg">${["all",...STATUSES].map(s=>`<button data-act="pf" data-v="${s}" aria-pressed="${S.pFilter===s}">${s==="all"?t("all"):t("st_"+s)} <span class="num">${s==="all"?S.projects.length:S.projects.filter(p=>(p.status||"idea")===s).length}</span></button>`).join("")}</div>
+  <section class="panel"><div class="list">${list.length?list.map(projItem).join(""):`<div class="empty">${t("noProjects")}</div>`}</div></section>`;
+}
+function vProject(id){
+  const p=S.projects.find(x=>x.id===id);if(!p){S.view=null;return vProjects()}
+  const c=clientOf(p.clientId);const paid=paidOf(p);const price=+p.price||0;const rem=Math.max(price-paid,0);const pctBar=price?Math.min(100,paid/price*100):0;
+  const pays=(p.payments||[]).slice().sort((a,b)=>String(b.date).localeCompare(a.date));
+  return `<button class="back" data-act="back">${t("back")}</button>
+  <div class="row between"><div style="min-width:0"><h1>${esc(p.title||"—")}</h1>${c?`<button class="back" data-act="openClient" data-id="${c.id}">${esc(c.name)}</button>`:""}</div>${statusPill(p.status||"idea")}</div>
+  <div class="seg">${STATUSES.map(s=>`<button data-act="setStatus" data-id="${p.id}" data-v="${s}" aria-pressed="${(p.status||"idea")===s}">${t("st_"+s)}</button>`).join("")}</div>
+  <section class="panel"><div class="row between"><h2>${t("payments")}</h2><button class="btn sm primary" data-act="addPayment" data-id="${p.id}">+ ${t("addPayment")}</button></div>
+   <div class="row between small"><span>${t("paid")} <b class="num">${money(paid)}</b> ${t("of")} <span class="num">${money(price)}</span></span><span>${t("remaining")} <b class="num" style="color:${rem>0?"var(--bad)":"var(--ok)"}">${money(rem)}</b></span></div>
+   <div class="bar"><i style="width:${pctBar}%"></i></div>
+   <div class="small"><span class="muted">${t("found")}:</span> <b>${esc(finderLabel(p.finder))}</b>${finderKey(p.finder)?` · ${t("commission")} <span class="num">${+p.finder.pct||0}%</span> = <b class="num">${money(commOf(p))}</b>`:""}</div>
+   <div class="list">${pays.length?pays.map(x=>`<div class="item" style="cursor:default"><div class="grow"><div class="t num">${money(x.amount)}</div><div class="s">${fmtDate(x.date)}${x.note?" · "+esc(x.note):""}</div></div><button class="btn sm danger" data-act="delPayment" data-id="${p.id}" data-pid="${x.id}">${t("del")}</button></div>`).join(""):`<div class="empty">${t("noPayments")}</div>`}</div></section>
+  ${+p.monthly>0||p.domain?`<section class="panel"><h2>${t("renewals").split("(")[0]}</h2><dl class="kv">${+p.monthly>0?`<dt>${t("monthly")}</dt><dd><span class="num">${money(p.monthly)}</span> · ${t("nextDue")}: ${fmtDate(p.nextDue)}</dd>`:""}${p.domain?`<dt>${t("domain")}</dt><dd>${fmtDate(p.domain)}</dd>`:""}</dl>${+p.monthly>0?`<button class="btn" data-act="subPaid" data-id="${p.id}">✓ ${t("subPaid")}</button>`:""}</section>`:""}
+  <section class="panel"><h2>${t("tasks")}</h2><div>${(p.tasks||[]).map(x=>`<label class="task ${x.done?"done":""}"><input type="checkbox" data-act="toggleTask" data-id="${p.id}" data-tid="${x.id}" ${x.done?"checked":""}><span style="flex:1">${esc(x.text)}</span><button class="btn sm danger" data-act="delTask" data-id="${p.id}" data-tid="${x.id}">×</button></label>`).join("")}</div>
+   <form class="row" data-form="task" data-id="${p.id}" style="flex-wrap:nowrap"><input id="newTask" name="text" placeholder="${t("addTask")}" required><button class="btn" type="submit">${t("add")}</button></form></section>
+  <section class="panel"><dl class="kv"><dt>${t("services")}</dt><dd>${(p.services||[]).map(s=>`<span class="chip">${t("sv_"+s)}</span>`).join(" ")||"—"}</dd>${p.links?`<dt>${t("links")}</dt><dd style="white-space:pre-wrap">${linkify(p.links)}</dd>`:""}${p.notes?`<dt>${t("notes")}</dt><dd style="white-space:pre-wrap">${esc(p.notes)}</dd>`:""}</dl>
+   <button class="btn" data-act="editProject" data-id="${p.id}">${t("edit")}</button></section>`;
+}
+function linkify(s){return esc(s).replace(/https?:\/\/[^\s<]+/g,u=>`<a href="${u}" target="_blank" rel="noopener" style="color:var(--accent)">${u}</a>`)}
+function vAppts(){
+  const td=todayIso();
+  const up=S.appts.filter(a=>a.date>=td).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
+  const past=S.appts.filter(a=>a.date<td).sort((a,b)=>(b.date+b.time).localeCompare(a.date+a.time));
+  return `<h1>${t("appts")}</h1><section class="panel"><div class="list">${up.length?up.map(a=>apptItem(a)).join(""):`<div class="empty">${t("noAppts")}</div>`}</div></section>
+  ${past.length?`<section class="panel"><button class="row between back" style="width:100%" data-act="togglePast"><h2>${t("past")} <span class="num muted">${past.length}</span></h2><span>${S.showPast?"−":"+"}</span></button>${S.showPast?`<div class="list">${past.map(a=>apptItem(a)).join("")}</div>`:""}</section>`:""}`;
+}
+function commissionTable(){
+  const map={};
+  for(const p of S.projects){const k=finderKey(p.finder);if(!k)continue;
+    map[k]??={key:k,name:finderLabel(p.finder),earned:0,out:0,projects:[]};map[k].earned+=commOf(p);map[k].projects.push(p)}
+  for(const x of S.payouts){map[x.key]??={key:x.key,name:x.name,earned:0,out:0,projects:[]};map[x.key].out+=+x.amount||0}
+  return Object.values(map).sort((a,b)=>(b.earned-b.out)-(a.earned-a.out));
+}
+function vTeam(){
+  const me=S.members[S.uid];const rows=commissionTable();const mine=rows.find(r=>r.key==="m:"+S.uid)||{earned:0,out:0,projects:[]};
+  const myLog=S.payouts.filter(x=>x.key==="m:"+S.uid).sort((a,b)=>String(b.date).localeCompare(a.date));
+  let h=`<h1>${t("myAccount")}</h1><div class="row"><div class="avatar">${esc(initials(me?.name))}</div><div><b>${esc(me?.name||"")}</b><div class="small muted">${S.owner?t("owner"):t("member")}</div></div><button class="btn sm" data-act="editMe" style="margin-inline-start:auto">${t("edit")}</button></div>`;
+  if(!S.owner){
+    h+=`<div class="stats" style="grid-template-columns:repeat(3,minmax(0,1fr))"><div class="stat"><span>${t("myEarned")}</span><b class="num">${money(mine.earned)}</b></div><div class="stat"><span>${t("myPaidOut")}</span><b class="num">${money(mine.out)}</b></div><div class="stat"><span>${t("myOpen")}</span><b class="num" style="color:var(--accent)">${money(mine.earned-mine.out)}</b></div></div>
+    <section class="panel"><h2>${t("myClients")}</h2><div class="list">${mine.projects.length?mine.projects.map(p=>`<button class="item" data-act="openProject" data-id="${p.id}"><div class="grow"><div class="t">${esc(clientOf(p.clientId)?.name||p.title)}</div><div class="s">${esc(p.title)} · ${t("paid")} <span class="num">${money(paidOf(p))}</span> × <span class="num">${+p.finder.pct||0}%</span></div></div><b class="num">${money(commOf(p))}</b></button>`).join(""):`<div class="empty">${t("noMine")}</div>`}</div></section>
+    ${myLog.length?`<section class="panel"><h2>${t("payoutsLog")}</h2><div class="list">${myLog.map(x=>`<div class="item" style="cursor:default"><div class="grow"><div class="t num">${money(x.amount)}</div><div class="s">${fmtDate(x.date)}</div></div></div>`).join("")}</div></section>`:""}`;
+  } else {
+    h+=`<section class="panel"><h2>${t("allComm")}</h2><div class="list">${rows.length?rows.map(r=>`<div class="item" style="cursor:default"><div class="avatar">${esc(initials(r.name))}</div><div class="grow"><div class="t">${esc(r.name)}</div><div class="s">${t("commission")} <span class="num">${money(r.earned)}</span> · ${t("myPaidOut")} <span class="num">${money(r.out)}</span></div></div>
+      <div style="text-align:end"><b class="num" style="color:${r.earned-r.out>0.004?"var(--accent)":"var(--muted)"}">${money(r.earned-r.out)}</b><br><button class="btn sm" data-act="payout" data-key="${esc(r.key)}" data-name="${esc(r.name)}" data-amt="${Math.max(0,r.earned-r.out).toFixed(2)}">${t("payOut")}</button></div></div>`).join(""):`<div class="empty">${t("commNone")}</div>`}</div></section>
+    ${S.payouts.length?`<section class="panel"><h2>${t("payoutsLog")}</h2><div class="list">${S.payouts.slice().sort((a,b)=>String(b.date).localeCompare(a.date)).map(x=>`<div class="item" style="cursor:default"><div class="grow"><div class="t">${esc(x.name)}</div><div class="s">${fmtDate(x.date)}</div></div><b class="num">${money(x.amount)}</b><button class="btn sm danger" data-act="delPayout" data-id="${x.id}">×</button></div>`).join("")}</div></section>`:""}`;
+  }
+  const ms=Object.values(S.members).sort((a,b)=>(b.role==="owner")-(a.role==="owner"));
+  h+=`<section class="panel"><h2>${t("teamList")}</h2><div class="list">${ms.map(m=>`<div class="item" style="cursor:default"><div class="avatar">${esc(initials(m.name))}</div><div class="grow"><div class="t">${esc(m.name)}</div><div class="s">${m.role==="owner"?t("owner"):t("member")}${m.active===false?` · <b style="color:var(--bad)">${t("stopped")}</b>`:""}${m.email?` · <span class="num">${esc(m.email)}</span>`:""}${m.phone?` · <span class="num">${esc(m.phone)}</span>`:""}</div></div>
+  ${S.owner&&m.role!=="owner"?`<button class="btn sm ${m.active===false?"":"danger"}" data-act="toggleActive" data-id="${m.id}">${m.active===false?t("activate"):t("deactivate")}</button>`:""}</div>`).join("")}</div>
+  ${S.owner?`<button class="btn primary" data-act="addMember">+ ${t("addMember")}</button><div class="hint">${t("shareHint")}</div>`:""}</section>
+  <button class="btn wide" data-act="logout">${t("logout")}</button>`;
+  return h;
+}
+function vJoin(){
+  return `<section class="panel" style="margin-top:8vh"><h1>${t("welcome")}</h1><p class="muted" style="margin:0">${t("ownerSetup")}</p>
+  <form data-form="me" style="display:flex;flex-direction:column;gap:10px"><label class="f">${t("yourName")}<input id="j-name" name="name" required value="${esc(S.meName)}"></label><label class="f">${t("phone")}<input id="j-phone" name="phone" type="tel" dir="ltr"></label><button class="btn primary" type="submit">${t("join")}</button></form></section>`;
+}
+function vLogin(){
+  return `<section class="panel" style="margin-top:8vh;max-width:420px;width:100%;align-self:center"><h1>${t("login")}</h1>
+  <form data-form="login" style="display:flex;flex-direction:column;gap:10px"><label class="f">${t("email")}<input id="l-email" name="email" type="email" dir="ltr" autocomplete="username" required></label>
+  <label class="f">${t("password")}<input id="l-pw" name="password" type="password" dir="ltr" autocomplete="current-password" required></label>
+  <button class="btn primary" type="submit">${t("loginBtn")}</button></form><button class="back" data-act="reset">${t("forgot")}</button></section>`;
+}
+function render(){
+  renderChrome();const m=document.getElementById("main");
+  const ae=document.activeElement,focusId=ae&&m.contains(ae)?ae.id:null,selStart=ae?.selectionStart,focusVal=ae?.value;
+  if(S.status==="loading"){m.innerHTML=`<div class="empty">${t("loading")}</div>`;return}
+  if(S.status==="login"){m.innerHTML=vLogin();return}
+  if(S.status==="inactive"){m.innerHTML=`<div class="panel"><div class="empty">${t("inactive")}</div><button class="btn" data-act="logout">${t("logout")}</button></div>`;return}
+  if(S.status==="join"){m.innerHTML=vJoin();return}
+  if(S.view?.type==="client")m.innerHTML=vClient(S.view.id);
+  else if(S.view?.type==="project")m.innerHTML=vProject(S.view.id);
+  else m.innerHTML={home:vHome,clients:vClients,projects:vProjects,appts:vAppts,team:vTeam}[S.tab]();
+  renderChrome();
+  if(focusId){const el=document.getElementById(focusId);if(el){if(focusVal!=null&&el.value!==focusVal&&el.id!=="q")el.value=focusVal;el.focus();try{if(selStart!=null)el.setSelectionRange(selStart,selStart)}catch(e){}}}
+}
+
+/* ---------- sheets (forms) ---------- */
+const sheetWrap=document.getElementById("sheetWrap"),sheet=document.getElementById("sheet");
+let sheetSubmit=null;
+function openSheet(title,body,onSubmit,delAct){
+  sheet.innerHTML=`<h2>${title}</h2><form id="sheetForm" style="display:flex;flex-direction:column;gap:10px">${body}
+  <div class="row" style="margin-top:4px"><button class="btn primary" type="submit" style="flex:1">${t("save")}</button><button class="btn" type="button" data-act="closeSheet">${t("cancel")}</button>${delAct?`<button class="btn danger" type="button" data-act="${delAct.act}" data-id="${delAct.id}">${t("del")}</button>`:""}</div></form>`;
+  sheetSubmit=onSubmit;sheetWrap.hidden=false;
+  setTimeout(()=>sheet.querySelector("input,select")?.focus(),50);
+}
+function closeSheet(){sheetWrap.hidden=true;sheet.innerHTML="";sheetSubmit=null}
+const opt=(v,l,sel)=>`<option value="${esc(v)}" ${sel?"selected":""}>${esc(l)}</option>`;
+function clientSelect(cur){return `<label class="f">${t("client")}<select id="f-client" name="clientId"><option value="">—</option>${S.clients.slice().sort((a,b)=>String(a.name).localeCompare(b.name)).map(c=>opt(c.id,c.name+(c.business?" · "+c.business:""),c.id===cur)).join("")}</select></label>`}
+
+function formClient(c){
+  c=c||{};
+  openSheet(c.id?t("edit"):t("newClient"),`
+   <label class="f">${t("clientName")}<input id="f-name" name="name" required value="${esc(c.name)}"></label>
+   <label class="f">${t("business")}<input id="f-business" name="business" value="${esc(c.business)}"></label>
+   <div class="grid2"><label class="f">${t("phone")}<input id="f-phone" name="phone" type="tel" dir="ltr" value="${esc(c.phone)}"></label><label class="f">${t("email")}<input id="f-email" name="email" type="email" dir="ltr" value="${esc(c.email)}"></label></div>
+   <label class="f">${t("address")}<input id="f-address" name="address" value="${esc(c.address)}"></label>
+   <label class="f">${t("notes")}<textarea id="f-notes" name="notes">${esc(c.notes)}</textarea></label>`,
+  async d=>{const data={name:d.name.trim(),business:d.business.trim(),phone:d.phone.trim(),email:d.email.trim(),address:d.address.trim(),notes:d.notes.trim()};
+    if(c.id)return write(()=>S.db.doc("clients/"+c.id).update(data),t("saved"));
+    let ref;const ok=await write(async()=>{ref=await S.db.collection("clients").add({...data,createdAt:Date.now(),createdBy:S.uid})},t("saved"));
+    if(ok&&ref){S.view={type:"client",id:ref.id};S.tab="clients"}return ok},
+  c.id?{act:"delClient",id:c.id}:null);
+}
+function formProject(p,clientId){
+  p=p||{};const f=p.finder||{kind:"none",pct:30};const fsel=f.kind==="member"?"m:"+f.id:f.kind;
+  const others=Object.values(S.members).filter(m=>m.role!=="owner"&&m.active!==false);
+  openSheet(p.id?t("edit"):t("newProject"),`
+   ${clientSelect(p.clientId||clientId)}
+   <label class="f">${t("projTitle")}<input id="f-title" name="title" required value="${esc(p.title)}"></label>
+   <div class="f"><span class="small muted">${t("services")}</span><div class="checks">${SERVICES.map(s=>`<label><input type="checkbox" name="sv" value="${s}" ${(p.services||[]).includes(s)?"checked":""}>${t("sv_"+s)}</label>`).join("")}</div></div>
+   <div class="grid2"><label class="f">${t("status")}<select id="f-status" name="status">${STATUSES.map(s=>opt(s,t("st_"+s),(p.status||"idea")===s)).join("")}</select></label>
+   <label class="f">${t("price")}<input id="f-price" name="price" type="number" step="0.01" min="0" inputmode="decimal" dir="ltr" value="${esc(p.price??"")}"></label></div>
+   <div class="panel" style="background:var(--sunk);border:0">
+    <label class="f">${t("finder")}<select id="f-finder" name="finder">${opt("none",t("finderNone"),fsel==="none")}${others.map(m=>opt("m:"+m.id,m.name,fsel==="m:"+m.id)).join("")}${opt("other",t("finderOther"),fsel==="other")}</select></label>
+    <div class="grid2"><label class="f" id="w-other" ${fsel==="other"?"":"hidden"}>${t("otherName")}<input id="f-oname" name="oname" value="${esc(f.kind==="other"?f.name:"")}"></label>
+    <label class="f" id="w-pct" ${fsel==="none"?"hidden":""}>${t("pct")}<input id="f-pct" name="pct" type="number" min="0" max="100" step="1" dir="ltr" value="${esc(f.pct??30)}"></label></div>
+   </div>
+   <div class="grid2"><label class="f">${t("monthly")}<input id="f-monthly" name="monthly" type="number" min="0" step="0.01" dir="ltr" value="${esc(p.monthly??"")}"></label><label class="f">${t("nextDue")}<input id="f-next" name="nextDue" type="date" value="${esc(p.nextDue||"")}"></label></div>
+   <label class="f">${t("domain")}<input id="f-domain" name="domain" type="date" value="${esc(p.domain||"")}"></label>
+   <label class="f">${t("links")}<textarea id="f-links" name="links" dir="ltr">${esc(p.links)}</textarea></label>
+   <label class="f">${t("notes")}<textarea id="f-pnotes" name="notes">${esc(p.notes)}</textarea></label>`,
+  async(d,fd)=>{
+    let finder={kind:"none"};
+    if(d.finder==="other")finder={kind:"other",name:d.oname.trim(),pct:+d.pct||0};
+    else if(d.finder.startsWith("m:"))finder={kind:"member",id:d.finder.slice(2),pct:+d.pct||0};
+    const data={clientId:d.clientId,title:d.title.trim(),services:fd.getAll("sv"),status:d.status,price:+d.price||0,finder,monthly:+d.monthly||0,nextDue:d.nextDue||"",domain:d.domain||"",links:d.links.trim(),notes:d.notes.trim()};
+    if(p.id)return write(()=>S.db.doc("projects/"+p.id).update(data),t("saved"));
+    let ref;const ok=await write(async()=>{ref=await S.db.collection("projects").add({...data,payments:[],tasks:[],createdAt:Date.now(),createdBy:S.uid})},t("saved"));
+    if(ok&&ref)S.view={type:"project",id:ref.id};return ok},
+  p.id?{act:"delProject",id:p.id}:null);
+  const sel=document.getElementById("f-finder");
+  sel.onchange=()=>{document.getElementById("w-other").hidden=sel.value!=="other";document.getElementById("w-pct").hidden=sel.value==="none"};
+}
+function formAppt(a,clientId){
+  a=a||{};
+  openSheet(a.id?t("edit"):t("newAppt"),`
+   ${clientSelect(a.clientId||clientId)}
+   <label class="f">${t("apptTitle")}<input id="f-atitle" name="title" value="${esc(a.title)}"></label>
+   <div class="grid2"><label class="f">${t("date")}<input id="f-date" name="date" type="date" required value="${esc(a.date||todayIso())}"></label><label class="f">${t("time")}<input id="f-time" name="time" type="time" value="${esc(a.time||"")}"></label></div>
+   <label class="f">${t("place")}<input id="f-place" name="place" value="${esc(a.place)}"></label>
+   <label class="f">${t("who")}<select id="f-who" name="who"><option value="">—</option>${Object.values(S.members).filter(m=>m.active!==false).map(m=>opt(m.id,m.name,m.id===(a.who||(a.id?"":S.uid)))).join("")}</select></label>
+   <label class="f">${t("notes")}<textarea id="f-anotes" name="notes">${esc(a.notes)}</textarea></label>`,
+  d=>{const data={clientId:d.clientId,title:d.title.trim(),date:d.date,time:d.time,place:d.place.trim(),who:d.who,notes:d.notes.trim()};
+    return a.id?write(()=>S.db.doc("appointments/"+a.id).update(data),t("saved")):write(()=>S.db.collection("appointments").add({...data,createdAt:Date.now(),createdBy:S.uid}),t("saved"))},
+  a.id?{act:"delAppt",id:a.id}:null);
+}
+function formPayment(p){
+  const rem=Math.max((+p.price||0)-paidOf(p),0);
+  openSheet(t("addPayment")+" · "+esc(p.title),`
+   <div class="grid2"><label class="f">${t("amount")}<input id="f-amt" name="amount" type="number" step="0.01" min="0.01" required dir="ltr" value="${rem?rem.toFixed(2):""}"></label><label class="f">${t("date")}<input id="f-pdate" name="date" type="date" required value="${todayIso()}"></label></div>
+   <label class="f">${t("notes")}<input id="f-pnote" name="note"></label>`,
+  d=>write(()=>S.db.doc("projects/"+p.id).update({payments:[...(p.payments||[]),{id:uidShort(),amount:+d.amount,date:d.date,note:d.note.trim()}]}),t("saved")));
+}
+function formPayout(key,name,amt){
+  openSheet(t("payOut")+" · "+esc(name),`
+   <div class="grid2"><label class="f">${t("amount")}<input id="f-oamt" name="amount" type="number" step="0.01" min="0.01" required dir="ltr" value="${+amt>0?amt:""}"></label><label class="f">${t("date")}<input id="f-odate" name="date" type="date" required value="${todayIso()}"></label></div>`,
+  d=>write(()=>S.db.collection("payouts").add({key,name,amount:+d.amount,date:d.date,createdAt:Date.now()}),t("saved")));
+}
+function formMe(){
+  const me=S.members[S.uid]||{};
+  openSheet(t("edit"),`<label class="f">${t("yourName")}<input id="f-mname" name="name" required value="${esc(me.name)}"></label><label class="f">${t("phone")}<input id="f-mphone" name="phone" type="tel" dir="ltr" value="${esc(me.phone)}"></label>`,
+  d=>write(()=>S.db.doc("users/"+S.uid).update({name:d.name.trim(),phone:d.phone.trim()}),t("saved")));
+}
+
+function formMember(){
+  openSheet(t("addMember"),`<label class="f">${t("wname")}<input id="f-wname" name="name" required></label>
+   <label class="f">${t("email")}<input id="f-wemail" name="email" type="email" dir="ltr" required autocomplete="off"></label>
+   <div class="grid2"><label class="f">${t("password")}<input id="f-wpw" name="password" type="text" dir="ltr" minlength="6" required autocomplete="off"></label><label class="f">${t("phone")}<input id="f-wphone" name="phone" type="tel" dir="ltr"></label></div>`,
+  async d=>{
+    const sec=firebase.apps.find(a=>a.name==="sec")||firebase.initializeApp(firebaseConfig,"sec");
+    try{
+      const cred=await sec.auth().createUserWithEmailAndPassword(d.email.trim(),d.password);
+      await fdb.doc("users/"+cred.user.uid).set({name:d.name.trim(),email:d.email.trim().toLowerCase(),phone:d.phone.trim(),role:"member",active:true,joinedAt:Date.now()});
+      await sec.auth().signOut();toast(t("memberCreated"));return true;
+    }catch(e){console.error(e);const c=e?.code||"";toast(c.includes("email-already")?t("emailUsed"):c.includes("weak-password")?t("weakPw"):c.includes("invalid-email")?t("badEmail"):t("err"));return false}
+  });
+}
+
+/* ---------- events ---------- */
+let armed=null;
+function confirmTwice(btn){if(armed===btn)return true;if(armed)armed.classList.remove("armed"),armed.textContent=armed.dataset.orig;armed=btn;btn.dataset.orig=btn.textContent;btn.classList.add("armed");btn.textContent=t("sure");setTimeout(()=>{if(armed===btn){btn.classList.remove("armed");btn.textContent=btn.dataset.orig;armed=null}},3500);return false}
+const proj=id=>S.projects.find(x=>x.id===id);
+document.addEventListener("click",async e=>{
+  const b=e.target.closest("[data-act]");if(!b)return;
+  if(e.target===sheetWrap)return;
+  const a=b.dataset.act,id=b.dataset.id;
+  if(b.type==="checkbox")return;
+  switch(a){
+   case"lang":S.lang=b.dataset.v;try{localStorage.setItem("dts-lang",S.lang)}catch(e){}render();break;
+   case"tab":S.tab=b.dataset.v;S.view=null;render();scrollTo(0,0);break;
+   case"back":S.view=null;render();break;
+   case"openClient":S.view={type:"client",id};render();scrollTo(0,0);break;
+   case"openProject":S.view={type:"project",id};render();scrollTo(0,0);break;
+   case"pf":S.pFilter=b.dataset.v;render();break;
+   case"togglePast":S.showPast=!S.showPast;render();break;
+   case"fab":({home:()=>formClient(),clients:()=>formClient(),projects:()=>formProject(),appts:()=>formAppt()})[S.tab]?.();break;
+   case"newAppt":formAppt(null,b.dataset.client);break;
+   case"newProject":formProject(null,b.dataset.client);break;
+   case"editClient":formClient(clientOf(id));break;
+   case"editProject":formProject(proj(id));break;
+   case"editAppt":formAppt(S.appts.find(x=>x.id===id));break;
+   case"editMe":formMe();break;
+   case"addPayment":formPayment(proj(id));break;
+   case"payout":formPayout(b.dataset.key,b.dataset.name,b.dataset.amt);break;
+   case"closeSheet":closeSheet();break;
+   case"addMember":formMember();break;
+   case"toggleActive":{const m=S.members[id];write(()=>fdb.doc("users/"+id).update({active:m.active===false}),t("saved"));break}
+   case"logout":auth.signOut();break;
+   case"reset":{const em=document.getElementById("l-email")?.value.trim();if(!em){toast(t("needEmail"));break}try{await auth.sendPasswordResetEmail(em)}catch(err){}toast(t("resetSent"));break}
+   case"copy":try{await navigator.clipboard.writeText(b.dataset.v);toast(t("copied"))}catch(err){const r=document.createRange();r.selectNodeContents(b);getSelection().removeAllRanges();getSelection().addRange(r)}break;
+   case"setStatus":write(()=>S.db.doc("projects/"+id).update({status:b.dataset.v}));break;
+   case"subPaid":{const p=proj(id);write(()=>S.db.doc("projects/"+id).update({payments:[...(p.payments||[]),{id:uidShort(),amount:+p.monthly,date:todayIso(),note:t("renewSub")}],nextDue:addMonth(p.nextDue)}),t("saved"));break}
+   case"delPayment":if(confirmTwice(b)){const p=proj(id);write(()=>S.db.doc("projects/"+id).update({payments:(p.payments||[]).filter(x=>x.id!==b.dataset.pid)}))}break;
+   case"delTask":{const p=proj(id);write(()=>S.db.doc("projects/"+id).update({tasks:(p.tasks||[]).filter(x=>x.id!==b.dataset.tid)}));break}
+   case"delPayout":if(confirmTwice(b))write(()=>S.db.doc("payouts/"+id).delete());break;
+   case"delClient":if(confirmTwice(b)&&await write(()=>S.db.doc("clients/"+id).delete())){closeSheet();S.view=null;render()}break;
+   case"delProject":if(confirmTwice(b)&&await write(()=>S.db.doc("projects/"+id).delete())){closeSheet();S.view=null;render()}break;
+   case"delAppt":if(confirmTwice(b)&&await write(()=>S.db.doc("appointments/"+id).delete()))closeSheet();break;
+  }
+});
+sheetWrap.addEventListener("click",e=>{if(e.target===sheetWrap)closeSheet()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!sheetWrap.hidden)closeSheet()});
+document.addEventListener("change",e=>{
+  const b=e.target;if(b.dataset.act!=="toggleTask")return;const p=proj(b.dataset.id);
+  write(()=>S.db.doc("projects/"+p.id).update({tasks:(p.tasks||[]).map(x=>x.id===b.dataset.tid?{...x,done:b.checked}:x)}));
+});
+document.addEventListener("input",e=>{if(e.target.id==="q"){S.q=e.target.value;render()}});
+document.addEventListener("submit",async e=>{
+  e.preventDefault();const f=e.target;const fd=new FormData(f);const d=Object.fromEntries(fd.entries());
+  const btn=f.querySelector('[type="submit"]');if(btn)btn.disabled=true;
+  try{
+    if(f.id==="sheetForm"&&sheetSubmit){if(await sheetSubmit(d,fd)!==false){closeSheet();render()}}
+    else if(f.dataset.form==="task"){const p=proj(f.dataset.id);const text=d.text.trim();if(text&&await write(()=>S.db.doc("projects/"+p.id).update({tasks:[...(p.tasks||[]),{id:uidShort(),text,done:false}]})))f.reset()}
+    else if(f.dataset.form==="me"&&S.owner){await write(()=>fdb.doc("users/"+S.uid).set({name:d.name.trim(),phone:d.phone.trim(),email:S.email,role:"owner",active:true,joinedAt:Date.now()}),t("saved"))}
+    else if(f.dataset.form==="login"){try{await auth.signInWithEmailAndPassword(d.email.trim(),d.password)}catch(err){toast(t("badLogin"))}}
+  }finally{if(btn)btn.disabled=false}
+});
+
+/* ---------- boot ---------- */
+const ADMIN_EMAIL="x12aa10000@gmail.com";
+const firebaseConfig={apiKey:"AIzaSyBUqzZ_t47_5k-KUjXCE7qO7qAaaqeIwL4",authDomain:"diamondtrust-crm.firebaseapp.com",projectId:"diamondtrust-crm",storageBucket:"diamondtrust-crm.firebasestorage.app",messagingSenderId:"237548222002",appId:"1:237548222002:web:bbfd07e4e8815daad9ae2b"};
+firebase.initializeApp(firebaseConfig);
+const auth=firebase.auth(),fdb=firebase.firestore();
+let unsubs=[],dataOn=false;
+function stopAll(){unsubs.forEach(f=>{try{f()}catch(e){}});unsubs=[];dataOn=false}
+function startData(){
+  if(dataOn)return;dataOn=true;
+  const need=["users","clients","projects","appointments","payouts"];
+  const done=()=>{if(need.every(n=>S.loaded[n])&&S.status==="loading")S.status="ready";if(S.status==="ready")render()};
+  const sub=(name,fn)=>unsubs.push(fdb.collection(name).onSnapshot(s=>{fn(s.docs.map(d=>({id:d.id,...d.data()})));S.loaded[name]=true;done()},err=>{console.error(name,err);S.loaded[name]=true;done()}));
+  sub("users",l=>{S.members={};l.forEach(m=>S.members[m.id]=m)});
+  sub("clients",l=>S.clients=l);
+  sub("projects",l=>S.projects=l);
+  sub("appointments",l=>S.appts=l);
+  sub("payouts",l=>S.payouts=l);
+}
+render();
+auth.onAuthStateChanged(u=>{
+  stopAll();closeSheet();
+  Object.assign(S,{members:{},clients:[],projects:[],appts:[],payouts:[],loaded:{},view:null,tab:"home"});
+  if(!u){S.status="login";S.uid=null;render();return}
+  S.uid=u.uid;S.email=(u.email||"").toLowerCase();S.owner=S.email===ADMIN_EMAIL;S.db=fdb;S.status="loading";render();
+  const meUnsub=fdb.doc("users/"+u.uid).onSnapshot(s=>{
+    const me=s.exists?s.data():null;
+    if(!me){stopData();S.status=S.owner?"join":"inactive";render();return}
+    if(me.active===false&&!S.owner){stopData();S.status="inactive";render();return}
+    if(S.status!=="ready")S.status="loading";
+    startData();render();
+  },err=>{console.error(err);S.status="inactive";render()});
+  function stopData(){const keep=meUnsub;unsubs.forEach(f=>{if(f!==keep)try{f()}catch(e){}});unsubs=[keep];dataOn=false;S.loaded={}}
+  unsubs.push(meUnsub);
+});
+</script>
+</body>
+</html>
