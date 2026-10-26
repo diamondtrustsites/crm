@@ -172,7 +172,7 @@ wname:"اسم الشغيل",deactivate:"إيقاف",activate:"تفعيل",stoppe
 teamTab:"الفريق",editWorker:"تعديل الشغيل",defaultPct:"نسبة عمولته %",recruitedBy:"مين جابه للشغل؟",nobody:"ما حدا",sendReset:"ابعتله رابط تغيير كلمة السر",resetTo:"انبعت رابط تغيير كلمة السر لـ",
 salesTotal:"مبيعات زبائنه",bonuses:"مكافآت",bonusTxt:"مكافأة 100 € لما الشغيل اللي جبته يجيب أول زبون دافع.",weekGoal:"هدف هالأسبوع",clientsBrought:"زبائن جابهم",monthComm:"عمولة هالشهر",openPay:"باقي لازم ينصرف",earnedTotal:"مجموع الأرباح",
 recruits:"شغيلة جابهم",bonusDone:"مستحقة",bonusWait:"بانتظار أول زبون",outsiders:"أشخاص من برا التطبيق",teamOpen:"مستحق للفريق",teamMonth:"عمولات هالشهر",ranking:"الشغيلة (حسب ربح هالشهر)",myProjects:"المشاريع",
-myStats:"أرباحي",noWorkers:"ما في شغيلة لسا. اضغط «إضافة شغيل».",clientsWeek:"زبائن هالأسبوع",profile:"ملفي",goalOk:"وصلت الهدف 👍",goalLeft:"باقي",workerNotes:"ملاحظات (بتشوفها إنت بس)"},
+salesBy:"مبيعاته",provision:"البروفيزيون (العمولة)",willGet:"رح ياخد",expected:"متوقع لما الزبائن يدفعوا الباقي",mySales:"مبيعاتي",myProvision:"البروفيزيون تبعي",myWillGet:"رح آخد",myStats:"أرباحي",noWorkers:"ما في شغيلة لسا. اضغط «إضافة شغيل».",clientsWeek:"زبائن هالأسبوع",profile:"ملفي",goalOk:"وصلت الهدف 👍",goalLeft:"باقي",workerNotes:"ملاحظات (بتشوفها إنت بس)"},
 de:{sub:"Kunden- & Projektverwaltung",home:"Start",clients:"Kunden",projects:"Projekte",appts:"Termine",team:"Mein Konto",
 loading:"Wird geladen…",noDb:"Öffne die App angemeldet mit deinem Claude-Konto, damit Daten gespeichert werden.",
 welcome:"Willkommen! Trag deinen Namen ins Team ein",welcomeTxt:"Diesen Namen sieht das ganze Team, und er erscheint bei „Wer hat den Kunden gefunden?“.",
@@ -201,7 +201,7 @@ wname:"Name des Mitarbeiters",deactivate:"Sperren",activate:"Aktivieren",stopped
 teamTab:"Team",editWorker:"Mitarbeiter bearbeiten",defaultPct:"Seine Provision %",recruitedBy:"Wer hat ihn geworben?",nobody:"Niemand",sendReset:"Link zum Passwort-Ändern schicken",resetTo:"Link zum Passwort-Ändern geschickt an",
 salesTotal:"Umsatz seiner Kunden",bonuses:"Prämien",bonusTxt:"100 € Prämie, sobald dein geworbener Mitarbeiter seinen ersten zahlenden Kunden bringt.",weekGoal:"Wochenziel",clientsBrought:"Gewonnene Kunden",monthComm:"Provision diesen Monat",openPay:"Noch auszuzahlen",earnedTotal:"Verdienst gesamt",
 recruits:"Geworbene Mitarbeiter",bonusDone:"Fällig",bonusWait:"Wartet auf ersten Kunden",outsiders:"Personen außerhalb der App",teamOpen:"Offen fürs Team",teamMonth:"Provisionen diesen Monat",ranking:"Mitarbeiter (nach Verdienst diesen Monat)",myProjects:"Projekte",
-myStats:"Mein Verdienst",noWorkers:"Noch keine Mitarbeiter. Tippe „Mitarbeiter hinzufügen“.",clientsWeek:"Kunden diese Woche",profile:"Mein Profil",goalOk:"Ziel erreicht 👍",goalLeft:"noch",workerNotes:"Notizen (nur für dich sichtbar)"}
+salesBy:"Sein Umsatz",provision:"Provision",willGet:"Bekommt noch",expected:"Erwartet, wenn Kunden den Rest zahlen",mySales:"Mein Umsatz",myProvision:"Meine Provision",myWillGet:"Bekomme ich noch",myStats:"Mein Verdienst",noWorkers:"Noch keine Mitarbeiter. Tippe „Mitarbeiter hinzufügen“.",clientsWeek:"Kunden diese Woche",profile:"Mein Profil",goalOk:"Ziel erreicht 👍",goalLeft:"noch",workerNotes:"Notizen (nur für dich sichtbar)"}
 };
 const STATUSES=["idea","offer","progress","done"];
 const SERVICES=["web","menu","pos","app","logo","hosting","seo","social","other"];
@@ -284,7 +284,7 @@ function vHome(){
    <div class="stat"><span>${t("statClients")}</span><b class="num">${S.clients.length}</b></div>
    <div class="stat"><span>${t("statActive")}</span><b class="num">${active}</b></div>
    <div class="stat"><span>${t("statMonth")}</span><b class="num">${money(month)}</b></div>
-   <div class="stat"><span>${t("statOpen")}</span><b class="num">${money(open)}</b></div></div>`:statGrid(ws)+goalBar(ws);
+   <div class="stat"><span>${t("statOpen")}</span><b class="num">${money(open)}</b></div></div>`:statGrid(ws);
   return top+`
   <section class="panel"><div class="row between"><h2>${t("upcoming")}</h2><button class="btn sm" data-act="newAppt">+ ${t("newAppt")}</button></div>
    <div class="list">${up.length?up.map(a=>apptItem(a)).join(""):`<div class="empty">${t("noUpcoming")}</div>`}</div></section>
@@ -341,8 +341,7 @@ function vAppts(){
   return `<h1>${t("appts")}</h1><section class="panel"><div class="list">${up.length?up.map(a=>apptItem(a)).join(""):`<div class="empty">${t("noAppts")}</div>`}</div></section>
   ${past.length?`<section class="panel"><button class="row between back" style="width:100%" data-act="togglePast"><h2>${t("past")} <span class="num muted">${past.length}</span></h2><span>${S.showPast?"−":"+"}</span></button>${S.showPast?`<div class="list">${past.map(a=>apptItem(a)).join("")}</div>`:""}</section>`:""}`;
 }
-const REF_BONUS=100,WEEK_GOAL=1;
-function weekStart(){const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7));return d.getTime()}
+const REF_BONUS=100;
 function monthPrefix(){const n=new Date();return n.getFullYear()+"-"+pad(n.getMonth()+1)}
 function workerStats(uid){
   const ps=S.projects.filter(p=>p.finder?.kind==="member"&&p.finder.id===uid);
@@ -352,25 +351,21 @@ function workerStats(uid){
   const hasPaid=id=>S.projects.some(p=>p.finder?.kind==="member"&&p.finder.id===id&&paidOf(p)>0);
   const bonus=recruits.filter(r=>hasPaid(r.id)).length*REF_BONUS;
   const out=S.payouts.filter(x=>x.key==="m:"+uid).reduce((a,x)=>a+(+x.amount||0),0);
-  const wst=weekStart();
   return {uid,ps,sales,comm,monthComm,bonus,recruits,hasPaid,out,earned:comm+bonus,open:comm+bonus-out,
-    week:new Set(ps.filter(p=>(p.createdAt||0)>=wst).map(p=>p.clientId)).size,clients:new Set(ps.map(p=>p.clientId)).size};
+    expected:ps.reduce((a,p)=>a+Math.max((+p.price||0)-paidOf(p),0)*(+p.finder.pct||0)/100,0),clients:new Set(ps.map(p=>p.clientId)).size};
 }
 function statGrid(w){
+  const me=w.uid===S.uid;
   return `<div class="stats">
-   <div class="stat"><span>${t("clientsBrought")}</span><b class="num">${w.clients}</b></div>
-   <div class="stat"><span>${t("monthComm")}</span><b class="num">${money(w.monthComm)}</b></div>
-   <div class="stat"><span>${t("earnedTotal")}</span><b class="num">${money(w.earned)}</b></div>
-   <div class="stat"><span>${t("openPay")}</span><b class="num" style="color:var(--accent)">${money(w.open)}</b></div></div>`;
-}
-function goalBar(w){
-  const pc=Math.min(100,w.week/WEEK_GOAL*100);
-  return `<section class="panel"><div class="row between"><h2>${t("weekGoal")}</h2><b class="num">${w.week} / ${WEEK_GOAL}</b></div><div class="bar"><i style="width:${pc}%"></i></div><div class="small muted">${w.week>=WEEK_GOAL?t("goalOk"):t("goalLeft")+" "+(WEEK_GOAL-w.week)+" · "+t("clientsWeek")}</div></section>`;
+   <div class="stat"><span>${me?t("mySales"):t("salesBy")}</span><b class="num">${money(w.sales)}</b></div>
+   <div class="stat"><span>${me?t("myProvision"):t("provision")}</span><b class="num">${money(w.earned)}</b></div>
+   <div class="stat"><span>${me?t("myWillGet"):t("willGet")}</span><b class="num" style="color:var(--accent)">${money(w.open)}</b></div>
+   <div class="stat"><span>${t("expected")}</span><b class="num">${money(w.expected)}</b></div></div>`;
 }
 function workerBody(uid){
   const w=workerStats(uid);
   const log=S.payouts.filter(x=>x.key==="m:"+uid).sort((a,b)=>String(b.date).localeCompare(a.date));
-  return statGrid(w)+goalBar(w)+`
+  return statGrid(w)+`
   <section class="panel"><div class="row between small"><span>${t("salesTotal")}</span><b class="num">${money(w.sales)}</b></div><div class="row between small"><span>${t("commission")}</span><b class="num">${money(w.comm)}</b></div><div class="row between small"><span>${t("bonuses")}</span><b class="num">${money(w.bonus)}</b></div><div class="row between small"><span>${t("myPaidOut")}</span><b class="num">${money(w.out)}</b></div></section>
   <section class="panel"><h2>${t("myProjects")}</h2><div class="list">${w.ps.length?w.ps.map(p=>`<button class="item" data-act="openProject" data-id="${p.id}"><div class="grow"><div class="t">${esc(clientOf(p.clientId)?.name||p.title)}</div><div class="s">${esc(p.title)} · ${t("paid")} <span class="num">${money(paidOf(p))}</span> × <span class="num">${+p.finder.pct||0}%</span></div></div><b class="num">${money(commOf(p))}</b></button>`).join(""):`<div class="empty">${t("noMine")}</div>`}</div></section>
   <section class="panel"><h2>${t("recruits")}</h2><div class="small muted">${t("bonusTxt")}</div><div class="list">${w.recruits.length?w.recruits.map(r=>`<div class="item" style="cursor:default"><div class="avatar">${esc(initials(r.name))}</div><div class="grow"><div class="t">${esc(r.name)}</div></div>${w.hasPaid(r.id)?`<span class="pill p-ok">${t("bonusDone")} · <span class="num">${money(REF_BONUS)}</span></span>`:`<span class="pill st-idea">${t("bonusWait")}</span>`}</div>`).join(""):`<div class="empty">—</div>`}</div></section>
@@ -402,7 +397,7 @@ function vTeam(){
   return `<h1>${t("teamTab")}</h1>
   <div class="stats" style="grid-template-columns:repeat(2,minmax(0,1fr))"><div class="stat"><span>${t("teamMonth")}</span><b class="num">${money(teamMonth)}</b></div><div class="stat"><span>${t("teamOpen")}</span><b class="num" style="color:var(--accent)">${money(teamOpen)}</b></div></div>
   <section class="panel"><div class="row between"><h2>${t("ranking")}</h2><button class="btn sm primary" data-act="addMember">+ ${t("addMember")}</button></div>
-  <div class="list">${ws.length?ws.map(({m,w},i)=>`<button class="item" data-act="openWorker" data-id="${m.id}"><div class="avatar">${esc(initials(m.name))}</div><div class="grow"><div class="t">${esc(m.name)}${m.active===false?` <span class="pill p-bad">${t("stopped")}</span>`:""}</div><div class="s">${t("clientsBrought")} <span class="num">${w.clients}</span> · ${t("weekGoal")} <span class="num">${w.week}/${WEEK_GOAL}</span> · ${t("monthComm")} <span class="num">${money(w.monthComm)}</span></div></div><div style="text-align:end"><b class="num" style="color:${w.open>0.004?"var(--accent)":"var(--muted)"}">${money(w.open)}</b><div class="small muted">${t("openPay")}</div></div></button>`).join(""):`<div class="empty">${t("noWorkers")}</div>`}</div>
+  <div class="list">${ws.length?ws.map(({m,w},i)=>`<button class="item" data-act="openWorker" data-id="${m.id}"><div class="avatar">${esc(initials(m.name))}</div><div class="grow"><div class="t">${esc(m.name)}${m.active===false?` <span class="pill p-bad">${t("stopped")}</span>`:""}</div><div class="s">${t("salesBy")} <span class="num">${money(w.sales)}</span> · ${t("provision")} <span class="num">${money(w.earned)}</span></div></div><div style="text-align:end"><b class="num" style="color:${w.open>0.004?"var(--accent)":"var(--muted)"}">${money(w.open)}</b><div class="small muted">${t("willGet")}</div></div></button>`).join(""):`<div class="empty">${t("noWorkers")}</div>`}</div>
   <div class="hint">${t("shareHint")}</div></section>
   ${outs.length?`<section class="panel"><h2>${t("outsiders")}</h2><div class="list">${outs.map(o=>`<div class="item" style="cursor:default"><div class="avatar">${esc(initials(o.name))}</div><div class="grow"><div class="t">${esc(o.name)}</div><div class="s">${t("commission")} <span class="num">${money(o.earned)}</span> · ${t("myPaidOut")} <span class="num">${money(o.out)}</span></div></div><button class="btn sm" data-act="payout" data-key="${esc(o.key)}" data-name="${esc(o.name)}" data-amt="${Math.max(0,o.earned-o.out).toFixed(2)}">${t("payOut")}</button></div>`).join("")}</div></section>`:""}
   ${prof}`;
